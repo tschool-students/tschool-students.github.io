@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- ============== SEO Meta Tags ============== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 網頁標題 -->
+    <title>會務儀表板｜臺北市數位實驗高中學生自治會</title>
+    
+    <!-- 網頁描述 (非常重要，會顯示在搜尋結果中) -->
+    <meta name="description" content="臺北市數位實驗高中學生自治會的會務儀表板，包含案件處理進度、檔案專區等資訊">
+    
+    <!-- 關鍵字 (雖然 Google 現在較不重視此標籤，但仍可加入) -->
+    <meta name="keywords" content="臺北市數位實驗高級中等學校,學生自治會,臺北市數位實驗高中,數位實驗高中,臺北市數位實中,數位實中,數實,學生會,會務儀表板">
+    
+    <!-- 作者 -->
+    <meta name="author" content="臺北市數位實驗高級中等學校學生自治會">
+    
+    <!-- Robots 標籤 (告訴搜尋引擎可以索引此頁面) -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph (OG) 標籤 (讓網頁在社群媒體分享時有更好的預覽效果) -->
+    <meta property="og:title" content="會務儀表板｜臺北市數位實驗高中學生自治會">
+    <meta property="og:description" content="臺北市數位實驗高中學生自治會的會務儀表板，包含案件處理進度、檔案專區等資訊">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://您的GitHub使用者名稱.github.io/您的專案名稱/">
+    <meta property="og:image" content="https://您的圖片連結.png">
+    
+    <!-- Twitter Card 標籤 (讓網頁在 Twitter 分享時有更好的預覽效果) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="臺北市數位實驗高中學生自治會的會務儀表板，包含案件處理進度、檔案專區等資訊">
+    <meta name="twitter:description" content="您的網頁描述">
+    <meta name="twitter:image" content="https://您的圖片連結.png">
+
+    <style>
+        /* 讓 iframe 滿版且自適應 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* 避免出現雙重捲軸 */
+        }
+        .responsive-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 這個 iframe 的 src 會由下面的 JavaScript 動態設定 -->
+    <iframe id="dynamicIframe" class="responsive-iframe" title="嵌入的內容"></iframe>
+
+    <script>
+        // <!--============== JavaScript 自動判斷螢幕尺寸更換 iframe ==============-->
+        (function() {
+            const iframe = document.getElementById('dynamicIframe');
+            
+            // --- 請在此設定您的 iframe 來源 ---
+            const mobileSrc = "https://tschool-students.notion.site/ebd/2409ce94a5ef80359944c595c5e8d2a7"; // 手機版網頁連結
+            const desktopSrc = "https://tschool-students.notion.site/ebd/23e9ce94a5ef80c086cfdb300c167e91"; // 電腦版網頁連結
+            const tabletBreakpoint = 768; // 切換電腦/手機版的螢幕寬度斷點 (單位：像素)
+            
+            function updateIframeSource() {
+                if (window.innerWidth < tabletBreakpoint) {
+                    // 如果螢幕寬度小於斷點，使用手機版連結
+                    iframe.src = mobileSrc;
+                } else {
+                    // 否則，使用電腦版連結
+                    iframe.src = desktopSrc;
+                }
+            }
+            
+            // 網頁載入時先執行一次
+            updateIframeSource();
+            
+            // 當使用者改變視窗大小時，重新判斷
+            window.addEventListener('resize', updateIframeSource);
+        })();
+    </script>
+
+</body>
+</html>
