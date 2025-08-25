@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    
     <link rel="icon" href="icon.ico" type="image/x-icon" >
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon" >
     <!-- ============== SEO Meta Tags ============== -->
@@ -35,149 +34,52 @@
     <meta name="twitter:title" content="臺北市數位實驗高中學生自治會的首頁">
     <meta name="twitter:description" content="您的網頁描述">
     <meta name="twitter:image" content="https://您的圖片連結.png">
-    <style>
-        /* 基本樣式重設與頁面佈局 */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; /* 確保 padding 和 border 不會增加元素總寬高 */
-            font-family: 'Helvetica Neue', Arial, '蘋方-繁', 'PingFang TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
-            display: flex;
-            flex-direction: column;
-            color: #333;
-        }
-
-        /* 頁首樣式 */
-        header {
-            width: 100%;
-            padding: 20px;
-            font-weight: bold;
-            font-size: 20px;
-            box-sizing: border-box; /* 確保 padding 在寬度計算之內 */
-            position: absolute; /* 預設為絕對定位在左上角 */
-            top: 0;
-            left: 0;
-        }
-
-        /* 網頁主體內容區域 */
-        main {
-            flex-grow: 1; /* 讓此區域填滿剩餘空間 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* 中央按鈕樣式 */
-        .dashboard-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 280px;  /* 稍微加大預設尺寸 */
-            height: 280px;
-            background-color: #88a6c5;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 20px; /* 圓角也微調 */
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            text-align: center;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        /* 按鈕滑鼠懸停效果 */
-        .dashboard-button:hover {
-            background-color: #4d6b8a;
-            transform: scale(1.1);
-        }
-
-        /* 按鈕下方小字樣式 */
-        .subtitle {
-            margin-top: 20px;
-            font-size: 18px;
-            color: rgb(94, 94, 94);
-        }
-
-        /* 頁尾樣式 */
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 14px;
-            color: #555;
-            box-sizing: border-box;
-        }
-
-        /* --- 響應式設計 (Responsive Web Design) --- */
-
-        /* 當螢幕寬度小於或等於 768px 時 (平板與手機) */
-        @media (max-width: 768px) {
-            header {
-                font-size: 15px; /* 稍微縮小字體 */
-            }
-
-            .dashboard-button {
-                width: 250px;
-                height: 250px;
-                font-size: 22px;
-            }
-        }
-
-        /* 當螢幕寬度小於或等於 480px 時 (主要是手機) */
-        @media (max-width: 480px) {
-            body {
-                display: block; /* 在非常小的螢幕上，改回標準區塊佈局可能更穩定 */
-            }
-            
-            header {
-                position: static; /* 取消絕對定位，回歸正常文件流 */
-                text-align: center; /* 文字置中 */
-                padding: 20px 15px; /* 調整內距 */
-            }
-
-            main {
-                 /* 因為 header 不再佔用空間，這裡需要留出空間 */
-                 /* flex-grow 在 block display 下無效，但我們確保它填滿剩餘空間 */
-                 padding-top: 40px;
-                 padding-bottom: 40px;
-            }
-
-            .dashboard-button {
-                width: 200px;
-                height: 200px;
-                font-size: 18px;
-                border-radius: 15px;
-            }
-
-            .subtitle {
-                padding: 0 15px; /* 確保文字不會貼齊螢幕邊緣 */
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/genwanmin/style.css">
 </head>
 <body>
     <header>
-        臺北市數位實驗高級中等學校學生自治會<br>
-        The Student Council of Taipei Digital Experimental High School
+        <div class="logo">
+            <img class="logo-img" src="logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="https://tschool-students.github.io/dashboard" class="btn-orange">會務儀表板</a>
+            <a href="" class="btn-gray">檔案專區</a>
+            <div class="social-links">
+                <a href="https://www.facebook.com/people/%E6%95%B8%E4%BD%8D%E5%AF%A6%E4%B8%AD%E5%AD%B8%E7%94%9F%E6%9C%83/61579395212418/" target="_blank" class="social-circle">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/tschool_student_council" target="_blank" class="social-circle">
+                    <!-- 在此處插入 Instagram Logo -->
+                    <img src="https://static.vecteezy.com/system/resources/previews/042/127/160/non_2x/instagram-logo-on-circle-style-with-transparent-background-free-png.png" alt="Instagram">
+                </a>
+                <a href="mailto:studentcouncil@tschool.tp.edu.tw" class="social-circle">
+                    <!-- 在此處插入 Email Logo -->
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/014/440/980/small_2x/email-message-icon-design-in-blue-circle-png.png" alt="Email">
+                </a>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <a href="https://tschool-students.github.io/dashboard" class="dashboard-button">
-            前往會務儀表板
-        </a>
-        <p class="subtitle">
-            官網還不存在 哈哈
-        </p>
+        <section class="announcements">
+            <h3>公告</h3>
+            <div id="announcements-list">
+                <!-- 公告將會由 JavaScript 動態載入至此 -->
+            </div>
+        </section>
     </main>
 
-    <footer>
-        copyright©臺北市數位實驗高級中等學校學生自治會
-    </footer>
+    <!-- 內嵌視窗 (Modal) -->
+    <div id="announcement-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-date"></p>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

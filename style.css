@@ -1,0 +1,289 @@
+/* --- 基本樣式 (同先前版本) --- */
+body {
+    font-family: 'GenWanMin', sans-serif;
+    background-color: #FEFBF3;
+    margin: 0;
+    padding: 20px;
+    /* 為了讓頁尾內容不被裁切，增加一些底部空間 */
+    padding-bottom: 40px; 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    /* 允許換行以適應小螢幕 */
+    flex-wrap: wrap; 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    margin-right: 15px;
+    height: 80px;
+}
+
+.title h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.title h2 {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    /* 允許導覽列項目換行 */
+    flex-wrap: wrap; 
+}
+
+.btn-orange {
+    background-color: #FFB347;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    /* 為了在小螢幕上堆疊時有間距 */
+    margin-top: 10px; 
+}
+
+.btn-orange:hover {
+    background-color: #FFA000;
+}
+
+.btn-gray {
+    background-color: #a7a7a7;
+    color: rgb(117, 117, 117);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    /* 為了在小螢幕上堆疊時有間距 */
+    margin-top: 10px; 
+}
+
+.btn-gray:hover {
+    background-color: #c6c6c6;
+}
+
+.social-links {
+    display: flex;
+    margin-left: 20px;
+}
+
+.social-circle {
+    background-color: #FFD700;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    /* 確保 Logo 不會變形 */
+    flex-shrink: 0;
+    /* 為了在小螢幕上堆疊時有間距 */
+    margin-top: 10px; 
+}
+
+.social-circle:hover {
+    background-color: #FFC700;
+}
+
+.social-circle img {
+    width: 24px;
+    height: 24px;
+}
+
+.announcements h3 {
+    color: #FF6B6B;
+    font-size: 20px;
+}
+
+#announcements-list {
+    background-color: #FFD1D1;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.announcement-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.announcement-item:hover {
+    transform: translateY(-5px);
+}
+
+.announcement-item h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.announcement-item p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    /* 調整為百分比，並增加 max-width */
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+    /* 增加動畫效果 */
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-date {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* --- RWD (響應式網頁設計) --- */
+/* 當螢幕寬度小於或等於 768px 時套用 */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    header {
+        /* 將 header 改為垂直堆疊 */
+        flex-direction: column;
+        align-items: center; /* 置中對齊 */
+    }
+
+    .logo {
+        /* Logo 區域置中 */
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .logo img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .title h1 {
+        font-size: 20px;
+    }
+    
+    .title h2 {
+        font-size: 14px;
+    }
+
+    nav {
+        /* 將導覽列改為垂直堆疊並置中 */
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* 佔滿整行 */
+    }
+
+    .btn-orange {
+        width: 80%;
+        text-align: center;
+        margin-left: 0; /* 移除左邊距 */
+        margin-bottom: 10px;
+    }
+
+    .social-links {
+        margin-left: 0; /* 移除左邊距 */
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .social-circle {
+        margin: 10px 8px 0 8px; /* 調整間距 */
+    }
+
+    #announcements-list {
+        padding: 15px;
+    }
+
+    /* 調整 Modal 在小螢幕上的邊距 */
+    .modal-content {
+        margin: 20% auto;
+    }
+}
+
+/* 當螢幕寬度小於或等於 480px 時套用 (更小的手機螢幕) */
+@media (max-width: 480px) {
+    .title h1 {
+        font-size: 18px;
+    }
+
+    .title h2 {
+        font-size: 12px;
+    }
+    
+    .announcement-item h4 {
+        font-size: 16px;
+    }
+    
+    .announcement-item p {
+        font-size: 12px;
+    }
+    
+    /* 讓 Modal 在極小螢幕上更靠近頂部 */
+    .modal-content {
+        margin-top: 25%;
+    }
+}
