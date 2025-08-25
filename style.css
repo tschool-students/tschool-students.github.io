@@ -243,6 +243,13 @@ nav {
         margin-left: 0; /* 移除左邊距 */
         margin-bottom: 10px;
     }
+    
+    .btn-gray {
+        width: 80%;
+        text-align: center;
+        margin-left: 0; /* 移除左邊距 */
+        margin-bottom: 10px;
+    }
 
     .social-links {
         margin-left: 0; /* 移除左邊距 */
