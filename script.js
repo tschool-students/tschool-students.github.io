@@ -6,10 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modal-body');
     const closeButton = document.querySelector('.close-button');
 
+    // --- 【修改處】 ---
+    // 在檔案名稱後面加上一個獨特的時間戳參數，來防止快取
+    const cacheBustingURL = `announcements.json?v=${new Date().getTime()}`;
+
     // 從 JSON 檔案獲取公告資料
-    fetch('announcements.json')
-        .then(response => response.json())
+    fetch(cacheBustingURL) // <--- 使用新的網址
+        .then(response => {
+            // 檢查伺服器回應是否正常
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
+            // 清空舊的公告，以防萬一
+            announcementsList.innerHTML = ''; 
+            
             data.forEach(announcement => {
                 const item = document.createElement('div');
                 item.classList.add('announcement-item');
@@ -21,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 announcementsList.appendChild(item);
             });
         })
-        .catch(error => console.error('Error fetching announcements:', error));
+        .catch(error => {
+            console.error('抓取公告時發生錯誤:', error);
+            announcementsList.innerHTML = '<p style="color: red;">公告載入失敗，請稍後再試。</p>';
+        });
 
     // 開啟內嵌視窗
     function openModal(announcement) {
