@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('announcement-item');
                 item.innerHTML = `
                     <h4>${announcement.title}</h4>
-                    <p>發布日期：${announcement.date} | 發布單位：${announcement.author}</p>
+                    <p>公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}</p>
                 `;
                 item.addEventListener('click', () => openModal(announcement));
                 announcementsList.appendChild(item);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 開啟內嵌視窗
     function openModal(announcement) {
         modalTitle.textContent = announcement.title;
-        modalDate.textContent = `發布日期：${announcement.date} | 發布單位：${announcement.author}`;
+        modalDate.textContent = `公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}`;
         modalBody.innerHTML = announcement.content.replace(/\n/g, '<br>'); // 將換行符號轉換為 <br>
         modal.style.display = 'block';
     }
