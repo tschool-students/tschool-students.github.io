@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "title": "測試公告",
-        "date": "0000-00-00",
+        "title": "公告本會第四屆成員招募相關事宜",
+        "date": "2025/08/20",
         "author": "秘書部",
-        "number":"北數治114公告字第000000號",
-        "content": "這是一份測試公告",
+        "number":"無",
+        "content": "茲辦理本會第四屆成員招募，請有意報名應徵的會員，參閱此次[招募簡章](https://drive.google.com/file/d/1UVJvqHwU7zRpLr2VkYxLHOJtBXswRHBc/view?usp=sharing)，並填寫[招募表單](https://forms.gle/qdMbaLBjmXsBqC277)報名。",
         "tags": ["測試", "測試"]
     }
 ]
