@@ -1,6 +1,15 @@
 [
     {
         "id": 1,
+        "title": "公告本會召開114學年度第一學期期初會員大會事宜",
+        "date": "2025/08/29",
+        "author": "秘書部",
+        "number":"000100",
+        "content": "本會謹訂於中華民國114年9月5日 8:30 至 10:00 假本校吉林學習基地四樓學生圖像教室召開114學年度第一學期期初會員大會，請準時與會。如不便實體與會者，請以個人載具由 Google Meet 會議室出席（代碼：woe-iemh-mhx）。\n <a target='_blank' herf='https://drive.google.com/file/d/18HhyCgKCjJJKoJk6VG0zDzbuKXr24j59/view?usp=drive_link'>公告及議程表等資料<a/>",
+        "tags": ["招募", "重要"]
+    }
+    {
+        "id": 2,
         "title": "公告本會第四屆成員招募相關事宜",
         "date": "2025/08/20",
         "author": "秘書部",
