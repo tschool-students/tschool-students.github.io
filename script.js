@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 開啟內嵌視窗
     function openModal(announcement) {
         modalTitle.textContent = announcement.title;
-        modalDate.textContent = `<b>公告日期：</b>${announcement.date} | <b>公告單位：</b>${announcement.author}｜<b>公告字號：</b>${announcement.number}`;
+        modalDate.textContent = `公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}`;
         modalBody.innerHTML = announcement.content.replace(/\n/g, '<br>'); // 將換行符號轉換為 <br>
         modal.style.display = 'block';
     }
@@ -51,11 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
     closeButton.addEventListener('click', () => {
         modal.style.display = 'none';
     });
-
+    
     // 點擊視窗外部關閉
     window.addEventListener('click', (event) => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
     });
+});
+
+document.addEventListener("keydown", function(event) {
+  // 方法一：用 key 判斷（較新）
+  if (event.key === "Escape") {
+    modal.style.display = 'none';
+  }
+
+  // 方法二：用 keyCode 判斷（舊寫法，部分相容性）
+  if (event.keyCode === 27) {
+    modal.style.display = 'none';
+  }
 });
