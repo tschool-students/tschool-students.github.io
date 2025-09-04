@@ -6,21 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modal-body');
     const closeButton = document.querySelector('.close-button');
 
-    // --- 【修改處】 ---
-    // 在檔案名稱後面加上一個獨特的時間戳參數，來防止快取
     const cacheBustingURL = `announcements.json?v=${new Date().getTime()}`;
 
-    // 從 JSON 檔案獲取公告資料
-    fetch(cacheBustingURL) // <--- 使用新的網址
+    fetch(cacheBustingURL)
         .then(response => {
-            // 檢查伺服器回應是否正常
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
-            // 清空舊的公告，以防萬一
             announcementsList.innerHTML = ''; 
             
             data.forEach(announcement => {
@@ -39,35 +34,29 @@ document.addEventListener('DOMContentLoaded', () => {
             announcementsList.innerHTML = '<p style="color: red;">公告載入失敗，請稍後再試。</p>';
         });
 
-    // 開啟內嵌視窗
     function openModal(announcement) {
         modalTitle.textContent = announcement.title;
         modalDate.textContent = `公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}`;
-        modalBody.innerHTML = announcement.content.replace(/\n/g, '<br>'); // 將換行符號轉換為 <br>
+        modalBody.innerHTML = announcement.content.replace(/\n/g, '<br>');
         modal.style.display = 'block';
     }
 
-    // 關閉內嵌視窗
-    closeButton.addEventListener('click', () => {
+    function closeModal() {
         modal.style.display = 'none';
-    });
+    }
+
+    closeButton.addEventListener('click', closeModal);
     
-    // 點擊視窗外部關閉
     window.addEventListener('click', (event) => {
         if (event.target == modal) {
-            modal.style.display = 'none';
+            closeModal();
         }
     });
-});
 
-document.addEventListener("keydown", function(event) {
-  // 方法一：用 key 判斷（較新）
-  if (event.key === "Escape") {
-    modal.style.display = 'none';
-  }
-
-  // 方法二：用 keyCode 判斷（舊寫法，部分相容性）
-  if (event.keyCode === 27) {
-    modal.style.display = 'none';
-  }
+    // ✅ 只有視窗開啟時，才允許 Esc 關閉
+    document.addEventListener('keydown', (event) => {
+        if ((event.key === "Escape" || event.key === "Esc") && modal.style.display === 'block') {
+            closeModal();
+        }
+    });
 });
