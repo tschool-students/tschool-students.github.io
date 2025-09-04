@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('announcement-item');
                 item.innerHTML = `
                     <h4>${announcement.title}</h4>
-                    <p>公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}</p>
+                    <p><b>公告日期：</b>${announcement.date} | <b>公告單位：</b>${announcement.author}｜<b>公告字號：</b>${announcement.number}</p>
                 `;
                 item.addEventListener('click', () => openModal(announcement));
                 announcementsList.appendChild(item);
