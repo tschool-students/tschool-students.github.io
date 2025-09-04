@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 開啟內嵌視窗
     function openModal(announcement) {
         modalTitle.textContent = announcement.title;
-        modalDate.textContent = `公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}`;
+        modalDate.textContent = `<b>公告日期：</b>${announcement.date} | <b>公告單位：</b>${announcement.author}｜<b>公告字號：</b>${announcement.number}`;
         modalBody.innerHTML = announcement.content.replace(/\n/g, '<br>'); // 將換行符號轉換為 <br>
         modal.style.display = 'block';
     }
