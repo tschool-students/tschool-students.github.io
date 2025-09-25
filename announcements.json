@@ -1,23 +1,5 @@
 [
     {
-        "id": 9,
-        "title": "📌公告本會第四屆一年級學生代表選舉登記截止日延期事宜",
-        "date": "2025/09/15",
-        "author": "選舉罷免執行委員會",
-        "number": "北數治114選委字第200100號",
-        "content": "一、經本委員會決議,本會第四屆一年級學生代表選舉登記截止日延期至中華民國114年9月24日。鼓勵全體會員積極參與學生自治。\n<a target='_blank' href='https://drive.google.com/file/d/1HP6vblnKdBcRUyhBGB0r53uFfjrTz3K9/view?usp=drive_link'>公告</a>",
-        "tags": ["選舉", "重要"]
-    },
-    {
-        "id": 7,
-        "title": "📌公告本會辦理第四屆一年級學生代表選舉事宜",
-        "date": "2025/09/08",
-        "author": "選舉罷免執行委員會",
-        "number": "北數治114選委字第200100號",
-        "content": "本會選舉罷免執行委員會謹辦理第四屆一年級學生代表選舉，相關資訊及其時程接詳載於公告。檢附公告、投票所平面圖及候選人登記表供參考。\n<a target='_blank' href='https://drive.google.com/file/d/1Bu9dlJIg3K3tmohtQY3NCdjhMEHODVVl/view?usp=drive_link'>選舉公告</a>",
-        "tags": ["選舉", "重要"]
-    },
-    {
         "id": 10,
         "title": "公告本會辦理《臺北市114學年度鼓勵高級中等學校學生自治組織分配學生社團活動經費補助計畫》事宜",
         "date": "2025/09/17",
@@ -27,6 +9,15 @@
         "tags": ["重要", "社團"]
     },
     {
+        "id": 9,
+        "title": "公告本會第四屆一年級學生代表選舉登記截止日延期事宜",
+        "date": "2025/09/15",
+        "author": "選舉罷免執行委員會",
+        "number": "北數治114選委字第200100號",
+        "content": "一、經本委員會決議,本會第四屆一年級學生代表選舉登記截止日延期至中華民國114年9月24日。鼓勵全體會員積極參與學生自治。\n<a target='_blank' href='https://drive.google.com/file/d/1HP6vblnKdBcRUyhBGB0r53uFfjrTz3K9/view?usp=drive_link'>公告</a>",
+        "tags": ["選舉", "重要"]
+    },
+    {
         "id": 8,
         "title": "公告本會114學年度第一學期會費繳納事宜",
         "date": "2025/09/14",
@@ -34,6 +25,15 @@
         "number": "北數治114公告字第000500號",
         "content": "本會謹訂於中華民國114年9月24日12:00至17:00,假臺北市數位實驗高級中等學校吉林學習基地公民素養坊(會議室)前吧台由本會秘書部部長收取會費新台幣200元整。\n<a target='_blank' href='https://drive.google.com/file/d/1W6o6g04yjaanjvMJ9HKzRfWSDWr3ozDA/view?usp=sharing'>公告</a>",
         "tags": ["會費", "重要"]
+    },
+    {
+        "id": 7,
+        "title": "公告本會辦理第四屆一年級學生代表選舉事宜",
+        "date": "2025/09/08",
+        "author": "選舉罷免執行委員會",
+        "number": "北數治114選委字第200100號",
+        "content": "本會選舉罷免執行委員會謹辦理第四屆一年級學生代表選舉，相關資訊及其時程接詳載於公告。檢附公告、投票所平面圖及候選人登記表供參考。\n<a target='_blank' href='https://drive.google.com/file/d/1Bu9dlJIg3K3tmohtQY3NCdjhMEHODVVl/view?usp=drive_link'>選舉公告</a>",
+        "tags": ["選舉", "重要"]
     },
     {
         "id": 6,
