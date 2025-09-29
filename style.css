@@ -196,6 +196,36 @@ nav {
     font-size: 14px;
 }
 
+/* --- 【新增】分頁控制項樣式 --- */
+#pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.pagination-btn {
+    background-color: #FFB347;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 0 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-family: 'GenWanMin', sans-serif;
+}
+
+.pagination-btn:hover {
+    background-color: #FFA000;
+}
+
+.pagination-btn.active {
+    background-color: #FF6B6B; /* 當前頁面的按鈕使用不同顏色 */
+    color: white;
+}
+
 
 /* --- RWD (響應式網頁設計) --- */
 /* 當螢幕寬度小於或等於 768px 時套用 */
