@@ -110,6 +110,17 @@ nav {
     height: 24px;
 }
 
+.introduction h3 {
+    color: #ffbc6b;
+    font-size: 20px;
+}
+
+.introduction {
+    background-color: #ffedd1;
+    border-radius: 20px;
+    padding: 20px;
+}
+
 .announcements h3 {
     color: #FF6B6B;
     font-size: 20px;
