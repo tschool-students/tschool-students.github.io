@@ -208,9 +208,9 @@ nav {
     background-color: #FFB347;
     color: white;
     border: none;
-    padding: 8px 14px;
+    padding: 10px 16px;
     margin: 0 5px;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
@@ -218,7 +218,7 @@ nav {
 }
 
 .pagination-btn:hover {
-    background-color: #FFA000;
+    background-color: #ffa8a8;
 }
 
 .pagination-btn.active {
