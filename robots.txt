@@ -1,3 +1,0 @@
-User-agent: *
-
-Sitemap: https://tschool-students.github.io/sitemap.xml
