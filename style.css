@@ -1,49 +1,38 @@
-/* --- 基本樣式 (同先前版本) --- */
+i {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #4A90E2;
+}
+
+/* --- 基本樣式 --- */
 body {
     font-family: 'GenWanMin', sans-serif;
     background-color: #FEFBF3;
     margin: 0;
     padding: 20px;
-    /* 為了讓頁尾內容不被裁切，增加一些底部空間 */
-    padding-bottom: 40px; 
+    padding-bottom: 60px; /* 增加底部空間以容納頁尾 */
 }
 
+/* --- 【優化】Header 樣式 --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    /* 允許換行以適應小螢幕 */
     flex-wrap: wrap; 
-}
-
-.logo {
-    display: flex;
-    align-items: center;
+    gap: 20px; /* 在換行時增加間距 */
 }
 
 .logo-img {
-    margin-right: 15px;
-    height: 80px;
-}
-
-.title h1 {
-    font-size: 24px;
-    color: #333;
-    margin: 0;
-}
-
-.title h2 {
-    font-size: 16px;
-    color: #666;
-    margin: 0;
+    height: 80px; /* 稍微調整Logo大小 */
 }
 
 nav {
     display: flex;
     align-items: center;
-    /* 允許導覽列項目換行 */
     flex-wrap: wrap; 
+    gap: 10px; /* 導覽按鈕間的間距 */
 }
 
 .btn-orange {
@@ -52,37 +41,21 @@ nav {
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 20px;
-    margin-left: 10px;
     font-weight: bold;
-    transition: background-color 0.3s;
-    /* 為了在小螢幕上堆疊時有間距 */
-    margin-top: 10px; 
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(255, 179, 71, 0.3);
 }
 
 .btn-orange:hover {
     background-color: #FFA000;
-}
-
-.btn-gray {
-    background-color: #a7a7a7;
-    color: rgb(117, 117, 117);
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin-left: 10px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    /* 為了在小螢幕上堆疊時有間距 */
-    margin-top: 10px; 
-}
-
-.btn-gray:hover {
-    background-color: #c6c6c6;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(255, 160, 0, 0.4);
 }
 
 .social-links {
     display: flex;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 .social-circle {
@@ -94,15 +67,14 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s;
-    /* 確保 Logo 不會變形 */
-    flex-shrink: 0;
-    /* 為了在小螢幕上堆疊時有間距 */
-    margin-top: 10px; 
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .social-circle:hover {
     background-color: #FFC700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .social-circle img {
@@ -110,117 +82,120 @@ nav {
     height: 24px;
 }
 
-.introduction h3 {
-    color: #ffa83f;
-    font-size: 20px;
+/* --- 【優化】通用區塊樣式 --- */
+section {
+    margin-bottom: 40px;
 }
 
+section h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    display: flex; /* 讓 icon 和文字對齊 */
+    align-items: center;
+    gap: 10px;
+}
+
+/* 為每個標題前加上一個裝飾性的 icon */
+.introduction h3 { color: #ffa83f; }
+
+.toolbox h3 { color: #4A90E2; }
+
+.announcements h3 { color: #FF6B6B; }
+
+.history h3 { color: #569d4b; }
+
+
+.content-box {
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* --- Introduction Section --- */
 #introduction {
-    background-color: #ffedd1;
+    background: linear-gradient(135deg, #fff3e1, #ffedd1);
     color: #5a4119;
-    border-radius: 20px;
+}
+
+#introduction ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+#introduction ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+/* 用 CSS 偽元素自訂列表標記 */
+#introduction ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #ffa83f;
+    font-weight: bold;
+}
+
+/* --- ToolBox Section --- */
+#toolbox-content {
+    background: linear-gradient(135deg, #e3f2fd, #d4e6f1);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.toolbox-item {
+    background-color: white;
     padding: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.announcements h3 {
-    color: #FF6B6B;
-    font-size: 20px;
+.toolbox-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
+.toolbox-item img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.toolbox-item h4 { margin: 0 0 5px 0; color: #333; }
+.toolbox-item p { margin: 0; color: #666; font-size: 14px; }
+
+/* --- Announcements Section --- */
 #announcements-list {
-    background-color: #FFD1D1;
-    border-radius: 20px;
+    background: linear-gradient(135deg, #ffebee, #ffdde1);
     padding: 20px;
 }
 
 .announcement-item {
     background-color: white;
-    padding: 15px;
+    padding: 15px 20px;
     border-radius: 15px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #ffb2b2; /* 【優化】新增左側裝飾線 */
 }
 
 .announcement-item:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+    border-left-color: #FF6B6B;
 }
 
-.announcement-item h4 {
-    margin: 0 0 5px 0;
-    color: #333;
-}
+.announcement-item h4 { margin: 0 0 5px 0; color: #333; }
+.announcement-item p { margin: 0; color: #666; font-size: 14px; }
 
-.announcement-item p {
-    margin: 0;
-    color: #666;
-    font-size: 14px;
-}
 
-.history h3 {
-    color: #569d4b;
-    font-size: 20px;
-}
-
-#history {
-    background-color: #cddfce;
-    color: #225a19;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    /* 調整為百分比，並增加 max-width */
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 90%; 
-    max-width: 600px;
-    border-radius: 10px;
-    position: relative;
-    /* 增加動畫效果 */
-    animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0; transform: scale(0.9);}
-    to {opacity: 1; transform: scale(1);}
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#modal-date {
-    color: #888;
-    font-size: 14px;
-}
-
-/* --- 【新增】分頁控制項樣式 --- */
 #pagination-controls {
     display: flex;
     justify-content: center;
@@ -237,114 +212,124 @@ nav {
     border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     font-family: 'GenWanMin', sans-serif;
 }
 
-.pagination-btn:hover {
-    background-color: #ffa8a8;
+.pagination-btn:hover { background-color: #ff9a00; }
+.pagination-btn.active { background-color: #FF6B6B; color: white; }
+
+/* --- 【優化】History Timeline --- */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    list-style: none;
+}
+/* 中間的時間線 */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    height: 100%;
+    width: 4px;
+    background: #dcedc8; /* 淺綠色線 */
+    border-radius: 2px;
 }
 
-.pagination-btn.active {
-    background-color: #FF6B6B; /* 當前頁面的按鈕使用不同顏色 */
-    color: white;
+.timeline-item {
+    margin-bottom: 30px;
+    position: relative;
+    padding-left: 50px; /* 為圓點和線留出空間 */
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+/* 時間軸上的圓點 */
+.timeline-dot {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    height: 16px;
+    width: 16px;
+    background: white;
+    border: 4px solid #81c784; /* 綠色圓點 */
+    border-radius: 50%;
+    z-index: 1;
 }
 
+.timeline-content {
+    background-color: #e8f5e9;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #dcedc8;
+}
+
+.timeline-content h4 {
+    margin: 0 0 10px 0;
+    color: #388e3c;
+    font-weight: bold;
+}
+
+.timeline-content p {
+    margin: 0;
+    color: #2e7d32;
+    line-height: 1.6;
+}
+
+
+/* --- Modal Styles --- */
+.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+.modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 90%; max-width: 600px; border-radius: 10px; position: relative; animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from {opacity: 0; transform: scale(0.95) translateY(10px);} to {opacity: 1; transform: scale(1) translateY(0);} }
+.close-button { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+.close-button:hover, .close-button:focus { color: black; text-decoration: none; cursor: pointer; }
+#modal-date { color: #888; font-size: 14px; margin-bottom: 15px; }
+
+/* --- 【新增】Footer --- */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+footer p {
+    margin: 0;
+    color: #999;
+    font-size: 14px;
+}
 
 /* --- RWD (響應式網頁設計) --- */
-/* 當螢幕寬度小於或等於 768px 時套用 */
-@media (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
-
+@media (max-width: 820px) {
     header {
-        /* 將 header 改為垂直堆疊 */
-        flex-direction: column;
-        align-items: center; /* 置中對齊 */
-    }
-
-    .logo {
-        /* Logo 區域置中 */
-        flex-direction: column;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .logo img {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .title h1 {
-        font-size: 20px;
-    }
-    
-    .title h2 {
-        font-size: 14px;
-    }
-
-    nav {
-        /* 將導覽列改為垂直堆疊並置中 */
         flex-direction: column;
         align-items: center;
-        width: 100%; /* 佔滿整行 */
     }
-
-    .btn-orange {
-        width: 80%;
+    .header-title {
         text-align: center;
-        margin-left: 0; /* 移除左邊距 */
-        margin-bottom: 10px;
+        flex-direction: column;
     }
-    
-    .btn-gray {
-        width: 80%;
-        text-align: center;
-        margin-left: 0; /* 移除左邊距 */
-        margin-bottom: 10px;
-    }
-
-    .social-links {
-        margin-left: 0; /* 移除左邊距 */
+    nav {
         justify-content: center;
         width: 100%;
     }
-    
-    .social-circle {
-        margin: 10px 8px 0 8px; /* 調整間距 */
-    }
-
-    #announcements-list {
-        padding: 15px;
-    }
-
-    /* 調整 Modal 在小螢幕上的邊距 */
-    .modal-content {
-        margin: 20% auto;
-    }
 }
 
-/* 當螢幕寬度小於或等於 480px 時套用 (更小的手機螢幕) */
-@media (max-width: 480px) {
-    .title h1 {
-        font-size: 18px;
-    }
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    .content-box, .timeline-content { padding: 20px; }
+    .btn-orange { width: 100%; text-align: center; }
+    .nav { flex-direction: column; width: 100%; }
+    .modal-content { margin: 20% auto; }
+}
 
-    .title h2 {
-        font-size: 12px;
-    }
-    
-    .announcement-item h4 {
-        font-size: 16px;
-    }
-    
-    .announcement-item p {
-        font-size: 12px;
-    }
-    
-    /* 讓 Modal 在極小螢幕上更靠近頂部 */
-    .modal-content {
-        margin-top: 25%;
-    }
+@media (max-width: 480px) {
+    .header-title h1 { font-size: 18px; }
+    .header-title h2 { font-size: 14px; }
+    #toolbox-content { grid-template-columns: 1fr; }
+    .timeline::before { left: 15px; }
+    .timeline-item { padding-left: 40px; }
+    .timeline-dot { left: 8px; }
+    .modal-content { margin-top: 25%; }
 }

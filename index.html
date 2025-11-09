@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
     <script type="application/ld+json">
         {
         "@context": "https://schema.org",
@@ -40,24 +42,22 @@
 </head>
 <body>
     <header>
-        <div class="logo">
+        <!-- 【優化】將 Logo 與標題放在一起 -->
+        <div class="header-title">
             <img class="logo-img" src="logo.png" alt="Logo">
         </div>
         <nav>
-            <a href="https://drive.google.com/drive/folders/1op8dT3GiBj5zCy78_Jw0mH9XFbxFOxuz?usp=sharing" class="btn-orange">雲端檔案櫃</a>
-            <a href="https://tschool-students.github.io/dashboard" class="btn-orange">會務儀表板</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6SQZPSC9cjs3ybpoInNu3WiEwZ2_RZRV5MmAh9uPPWcXSYw/viewform" class="btn-orange">學權案件表單</a>
+            <a href="https://drive.google.com/drive/folders/1op8dT3GiBj5zCy78_Jw0mH9XFbxFOxuz?usp=sharing" target="_blank" class="btn-orange">雲端檔案櫃</a>
+            <a href="https://tschool-students.github.io/dashboard" target="_blank" class="btn-orange">會務儀表板</a>
             <a href="https://docs.google.com/spreadsheets/d/1A-OgyEWTPCvbd1GKUdVikcGecrGvgVrv8M1BEr5NWyM/edit?usp=sharing" class="btn-orange">透明化帳務</a>
             <div class="social-links">
                 <a href="https://www.facebook.com/people/%E6%95%B8%E4%BD%8D%E5%AF%A6%E4%B8%AD%E5%AD%B8%E7%94%9F%E6%9C%83/61579395212418/" target="_blank" class="social-circle">
                     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png" alt="Facebook">
                 </a>
                 <a href="https://www.instagram.com/tschool_student_council" target="_blank" class="social-circle">
-                    <!-- 在此處插入 Instagram Logo -->
                     <img src="https://static.vecteezy.com/system/resources/previews/042/127/160/non_2x/instagram-logo-on-circle-style-with-transparent-background-free-png.png" alt="Instagram">
                 </a>
-                <a href="mailto:studentcouncil@tschool.tp.edu.tw" class="social-circle">
-                    <!-- 在此處插入 Email Logo -->
+                <a href="mailto:studentcouncil@tschool.tp.edu.tw" target="_blank" class="social-circle">
                     <img src="https://static.vecteezy.com/system/resources/thumbnails/014/440/980/small_2x/email-message-icon-design-in-blue-circle-png.png" alt="Email">
                 </a>
             </div>
@@ -65,35 +65,84 @@
     </header>
     <p style="color: gray; text-align: right;">* 此為本會暫時性官方網站</p>
     <main>
-        <section class="introduction">
-            <h3>簡介（開發中）</h3>
-            <div id="introduction">
-                「臺北市數位實驗高級中等學校學生自治會」是臺北市數位實驗高級中等學校的學生自治組織<br>
-                根據《組織章程》我們有以下幾個宗旨：<br>
-                一、實踐校園民主與學生自治精神。<br>
-                二、暢通本校與學生之意見交流管道。<br>
-                三、維護學生權益。<br>
-                四、維繫學生之間互動與連結。<br>
-                五、推動學生自治相關知能之普及。<br>
+        <section class="toolbox">
+            <h3>學生自治工具箱</h3>
+            <div id="toolbox-content" class="content-box">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6SQZPSC9cjs3ybpoInNu3WiEwZ2_RZRV5MmAh9uPPWcXSYw/viewform" target="_blank" class="toolbox-item">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <h4>提出學生權益案件</h4>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwPPgbfbWNPMxHKaL_gp2ZilQaOpCpDZnB07AyuzJyVPrnag/viewform?usp=preview" target="_blank" class="toolbox-item">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <h4>跨屆代傳訊息服務申請</h4>
+                </a>
+                <a href="#" class="toolbox-item">
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <h4>其他</h4>
+                </a>
+                <a href="#" class="toolbox-item">
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <h4>其他</h4>
+                </a>
             </div>
         </section>
+
         <section class="announcements">
             <h3>公告</h3>
-            <div id="announcements-list">
+            <div id="announcements-list" class="content-box">
                 <!-- 公告將會由 JavaScript 動態載入至此 -->
             </div>
-            <!-- 【新增】分頁控制項的容器 -->
             <div id="pagination-controls"></div>
         </section>
+        
+        <section class="introduction">
+            <h3>簡介</h3>
+            <div id="introduction" class="content-box">
+                <p>「臺北市數位實驗高級中等學校學生自治會」是本校的學生自治組織，根據《組織章程》我們有以下宗旨：</p>
+                <!-- 【優化】改用 ul 列表呈現宗旨 -->
+                <ul>
+                    <li>實踐校園民主與學生自治精神。</li>
+                    <li>暢通本校與學生之意見交流管道。</li>
+                    <li>維護學生權益。</li>
+                    <li>維繫學生之間互動與連結。</li>
+                    <li>推動學生自治相關知能之普及。</li>
+                </ul>
+            </div>
+        </section>
+
          <section class="history">
-            <h3>本會歷史（開發中）</h3>
-            <div id="history">
-                111年10月13日　　創會，正式制定本會組織章程。<br>
-                113年6月28日　　本會第一次改組，增設行政部、美術組改組為美宣部、文宣組改組為書記部、其他各組改為各部。<br>
-                114年9月5日 　 　本會第二次改組，書記部與總務部併入行政部並改組為秘書部、美宣部併入公關部、增設活動部。<br>
+            <h3>本會歷史</h3>
+            <!-- 【優化】改用時間軸呈現歷史 -->
+            <div id="history" class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>111年10月13日</h4>
+                        <p>創會，並正式制定本會組織章程。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>113年6月28日</h4>
+                        <p>本會進行第一次改組，增設行政部、美術組改組為美宣部、文宣組改組為書記部、其他各組改為各部。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>114年9月5日</h4>
+                        <p>本會進行第二次改組，書記部與總務部併入行政部並改組為秘書部、美宣部併入公關部、增設活動部。</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- 【新增】頁尾 -->
+    <footer>
+        <p>&copy; 2025 臺北市數位實驗高級中等學校學生自治會. All Rights Reserved.</p>
+    </footer>
 
     <!-- 內嵌視窗 (Modal) -->
     <div id="announcement-modal" class="modal">
