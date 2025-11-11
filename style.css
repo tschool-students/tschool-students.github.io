@@ -53,6 +53,18 @@ nav {
     box-shadow: 0 6px 12px rgba(255, 160, 0, 0.4);
 }
 
+.btn-gray {
+    background-color: #aeaeae;
+    color: rgb(235, 235, 235);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(132, 132, 132, 0.3);
+}
+
 .social-links {
     display: flex;
     margin-left: 15px;
