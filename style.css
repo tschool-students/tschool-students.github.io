@@ -345,3 +345,94 @@ footer p {
     .timeline-dot { left: 8px; }
     .modal-content { margin-top: 25%; }
 }
+
+/* ================== 彈出式廣告樣式 ================== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none; /* 預設隱藏 */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.popup-content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.9);
+    animation: popup-scale 0.3s ease-out forwards;
+}
+
+@keyframes popup-scale {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.popup-close:hover {
+    color: #333;
+}
+
+.popup-content h2 {
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; /* 在小螢幕上換行 */
+}
+
+.popup-btn {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+}
+
+.btn-main {
+    background-color: #ffaf2d; /* 主按鈕顏色 */
+}
+
+.btn-secondary {
+    background-color: #ffaf2d; /* 次要按鈕顏色 */
+}
+
+.popup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}

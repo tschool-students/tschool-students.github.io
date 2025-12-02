@@ -36,10 +36,8 @@
     <meta name="twitter:title" content="臺北市數位實驗高中學生自治會">
     <meta name="twitter:description" content="臺北市數位實驗高中學生自治會的首頁">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <style>
-        
-    </style>
 </head>
 <body>
     <header>
@@ -152,7 +150,6 @@
         <p>&copy; 2025 臺北市數位實驗高級中等學校學生自治會. All Rights Reserved.</p>
     </footer>
     <p style="display: none;">臺北市數位實驗高級中等學校,學生自治會,臺北市數位實驗高中,數位實驗高中,臺北市數位實中,數位實中,數實,學生會,首頁,網路高中,數位高中,網中,實驗高中,實中</p>
-    
     <!-- 內嵌視窗 (Modal) -->
     <div id="announcement-modal" class="modal">
         <div class="modal-content">
@@ -163,55 +160,6 @@
         </div>
     </div>
 
-    <!-- ================== 【新增】2026學習分享會 彈出式廣告 ================== -->
-    <div id="event-popup" class="popup-overlay">
-        <div class="popup-content">
-            <span class="popup-close">&times;</span>
-            <h2>誠摯邀請 | 2026 學習分享會</h2>
-            <div class="popup-buttons">
-                <a href="https://tschool-students.github.io/expo2026" target="_blank" class="popup-btn btn-main">前往活動官網</a>
-                <a href="https://tschool-students.github.io/expo2026/invitation" target="_blank" class="popup-btn btn-secondary">查看精美邀請函</a>
-            </div>
-        </div>
-    </div>
-    <!-- ====================================================================== -->
-
     <script src="script.js"></script>
-
-    <!-- 【新增】彈出式廣告的控制腳本 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const popup = document.getElementById('event-popup');
-            const closeButton = popup.querySelector('.popup-close');
-
-            // 顯示彈出視窗的函式
-            const showPopup = () => {
-                popup.style.display = 'flex';
-            };
-
-            // 隱藏彈出視窗的函式
-            const hidePopup = () => {
-                popup.style.display = 'none';
-                // 使用 sessionStorage 記錄已顯示過，避免在同一個分頁中重複顯示
-                sessionStorage.setItem('popupShown', 'true');
-            };
-
-            // 檢查是否已經顯示過
-            if (!sessionStorage.getItem('popupShown')) {
-                // 延遲 1.5 秒後顯示，提供更好的使用者體驗
-                setTimeout(showPopup, 1500);
-            }
-
-            // 點擊關閉按鈕
-            closeButton.addEventListener('click', hidePopup);
-
-            // 點擊視窗外部區域關閉
-            popup.addEventListener('click', (event) => {
-                if (event.target === popup) {
-                    hidePopup();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
