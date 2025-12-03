@@ -1,5 +1,14 @@
 [
     {
+        "id": 15,
+        "title": "公告本會受理「臺北市政府第11屆性別平等教育委員會委員公開推薦遴選」作業相關事宜",
+        "date": "2025/12/3",
+        "author": "秘書部",
+        "number": "北數治114公告字第000700號",
+        "content": "本會將針對「臺北市政府第11屆性別平等教育委員會委員公開推薦遴選」進行遴選作業，敬請有意願參選的會員留意相關資訊。\n\n<a target='_blank' href='https://drive.google.com/open?id=1IU4JDIVhDC19zz8tNaYR_KE5WrkfZ26B&usp=drive_fs'>本會公告</a>｜<a target='_blank' href='https://drive.google.com/file/d/1u7M1prLWyPj8bea2ctAKd0h141_rcbtJ/view?usp=drive_link'>臺北市政府教育局函</a>｜<a target='_blank' href='https://drive.google.com/file/d/1vh3ZTMaD-V8rGS2AQk4C0mOKgs_uHq3Y/view?usp=drive_link'>遴選簡章</a>",
+        "tags": ["遴選", "性別平等教育委員會", "推薦"]
+    },
+    {
         "id": 14,
         "title": "【轉知】學輔處修訂《教室借用及使用規定》",
         "date": "2025/11/5",
@@ -22,7 +31,7 @@
         "title": "公告本會第四屆一年級學生代表選舉結果",
         "date": "2025/10/21",
         "author": "選舉罷免執行委員會",
-        "number": "北數治114公告字第200400號",
+        "number": "北數治114選委字第200400號",
         "content": "本會選舉罷免執行委員會已於中華民國114年10月20日辦理第四屆一年級學生代表選舉，經過此次投開票，本會選舉罷免執行委員會依據《臺北市數位實驗高級中等學校學生自治會選舉罷免法》宣布莊睿誠同學、魏弘展同學當選本會第四屆一年級學生代表。\n\n<a target='_blank' href='https://drive.google.com/file/d/1slQh-yPVxIfQ2s1XzBjDgyDpg9ITXK8M/view?usp=drive_link'>選舉結果公告</a>",
         "tags": ["選舉", "重要"]
     },
@@ -31,7 +40,7 @@
         "title": "公告發布本會第四屆一年級學生代表選舉公報",
         "date": "2025/10/1",
         "author": "選舉罷免執行委員會",
-        "number": "北數治114公告字第200300號",
+        "number": "北數治114選委字第200300號",
         "content": "發布本會第四屆一年級學生代表選舉公報，請所有選舉人注意投票日時間，並於指定時間內至各投票所行使選舉權。投票時應以本會提供之圈選工具於選舉票上圈選一名候選人。\n\n<a target='_blank' href='https://drive.google.com/file/d/1EIkRXnjKj77uBp2vuozYPQ_5L6Wzhdy5/view?usp=drive_link'>選舉公報</a>",
         "tags": ["選舉", "重要"]
     },
