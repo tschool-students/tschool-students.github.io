@@ -1,3 +1,46 @@
+// 1. 頁面載入後：執行淡入動畫
+window.addEventListener('pageshow', (event) => {
+    // 使用 setTimeout 確保瀏覽器已經準備好繪製
+    setTimeout(() => {
+        document.body.classList.add('fade-in');
+    }, 50);
+});
+
+// 2. 點擊連結時：執行淡出動畫
+document.addEventListener('DOMContentLoaded', () => {
+    // 抓取頁面上所有的連結
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+
+            // 排除狀況：
+            // 1. 沒有 href 或 href 是錨點 (#)
+            // 2. 開新分頁 (_blank)
+            // 3. 連結到外部網站 (http 開頭且不是本站) - 視需求而定，通常建議內部連結才做特效
+            // 4. 下載連結
+            
+            if (!href || href.startsWith('#') || target === '_blank' || href.startsWith('mailto:')) {
+                return; // 這些情況維持預設行為
+            }
+
+            // 阻擋預設跳轉
+            e.preventDefault();
+
+            // 執行淡出
+            document.body.classList.remove('fade-in');
+
+            // 等待 0.3 秒動畫結束後，再進行跳轉
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300); // 這個時間要跟 CSS 的 transition 時間一致
+        });
+    });
+
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. 手機版選單切換 (Mobile Toggle) - 所有頁面通用
     const hamburger = document.querySelector('.hamburger');

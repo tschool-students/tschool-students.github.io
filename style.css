@@ -14,7 +14,6 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
     font-family: var(--font-main);
     background-color: var(--light-bg);
@@ -23,8 +22,17 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    
+    /* 關鍵修改：預設透明，並設定轉場時間 */
+    opacity: 0; 
+    transition: opacity 0.1s ease-in-out; 
 
     -ms-overflow-style: none; /*避免 IE 瀏覽器瀏覽網頁時出現滑桿*/
+}
+
+/* 當頁面載入完成，JS 會加上這個 class 讓頁面顯示 */
+body.fade-in {
+    opacity: 1;
 }
 
 body::-webkit-scrollbar {/*避免 Safari 和 Chromium 瀏覽器瀏覽網頁時出現滑桿*/
