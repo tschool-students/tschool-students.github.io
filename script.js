@@ -122,26 +122,56 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Modal 操作
-        function openModal(announcement) {
-            modalTitle.textContent = announcement.title;
-            modalDate.textContent = `日期：${announcement.date} | 單位：${announcement.author} | 字號：${announcement.number || '無'}`;
-            let content = announcement.content || "";
-            modalBody.innerHTML = content.replace(/\r\n|\n|\r/g, '<br>');
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // 禁止背景滾動
+        // ... 前面的程式碼 ...
+
+    // --- Modal 操作區塊 ---
+
+    // 開啟內嵌視窗
+    function openModal(announcement) {
+        modalTitle.textContent = announcement.title;
+        modalDate.textContent = `日期：${announcement.date} | 單位：${announcement.author} | 字號：${announcement.number || '無'}`;
+        
+        let content = announcement.content || "";
+        // 替換換行符號
+        let formattedContent = content.replace(/\r\n|\n|\r/g, '<br>');
+        
+        
+
+        modalBody.innerHTML = formattedContent;
+        
+        // 【關鍵修改 1】改用 flex 以配合 CSS 的置中效果
+        modal.style.display = 'flex'; 
+        document.body.style.overflow = 'hidden'; // 禁止背景滾動
+    }
+
+    // 關閉視窗函式
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // 恢復背景滾動
+    }
+
+    // 點擊 X 按鈕關閉
+    if(closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    // 點擊視窗外部關閉
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            closeModal();
         }
+    });
 
-        closeButton.addEventListener('click', () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+    // 【關鍵修改 2】新增 ESC 鍵關閉功能
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            // 檢查 Modal 是否開啟中
+            if (modal.style.display === 'flex') {
+                closeModal();
             }
-        });
+        }
+    });
+
+    // ... 結尾 ...
     }
 });
