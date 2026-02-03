@@ -23,9 +23,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    -ms-overflow-style: none; /*避免 IE 瀏覽器瀏覽網頁時出現滑桿*/
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar {/*避免 Safari 和 Chromium 瀏覽器瀏覽網頁時出現滑桿*/
   display: none;
 }
 
