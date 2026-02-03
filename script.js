@@ -122,9 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function openModal(announcement) {
         modalTitle.textContent = announcement.title;
         modalDate.textContent = `公告日期：${announcement.date} | 公告單位：${announcement.author}｜公告字號：${announcement.number}`;
-        // 將 \n 換行符號轉為 <br>
+        
+        // 取得內容，若無內容則給空字串
         let content = announcement.content || "";
-        modalBody.innerHTML = content.replace(/\n/g, '<br>');
+        
+        // 【關鍵修改】使用正規表達式將所有的 \n, \r\n, \r 都替換成 <br>
+        // 這樣無論您在 Google Sheet 是用 Alt+Enter 換行，或是複製貼上的文字，都能正常顯示
+        let formattedContent = content.replace(/\r\n|\n|\r/g, '<br>');
+
+        // 將轉換後的內容放入視窗中
+        modalBody.innerHTML = formattedContent;
+        
         modal.style.display = 'block';
     }
 
