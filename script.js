@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let allAnnouncements = [];
         let currentPage = 1;
-        const announcementsPerPage = 10;
+        const announcementsPerPage = 6;
 
         // 顯示 Loading
         loadingSpinner.style.display = 'block';
