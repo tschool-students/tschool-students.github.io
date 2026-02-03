@@ -22,10 +22,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
-    /* 關鍵修改：預設透明，並設定轉場時間 */
-    opacity: 0; 
-    transition: opacity 0.1s ease-in-out; 
 
     -ms-overflow-style: none; /*避免 IE 瀏覽器瀏覽網頁時出現滑桿*/
 }
