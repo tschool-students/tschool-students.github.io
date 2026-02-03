@@ -1,221 +1,102 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <link rel="icon" href="favicon.ico" >
-    <link rel="shortcut icon" href="favicon.ico" >
-    <!-- ============== SEO Meta Tags ============== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 網頁標題 -->
-    <title>臺北市數位實驗高中學生自治會</title>
-    
-    <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "臺北市數位實驗高中學生自治會",
-        "url": "https://tschool-students.github.io"
-        }
-    </script>
-    
-    <meta name="description" content="臺北市數位實驗高中學生自治會的首頁">
-    
-    <meta name="keywords" content="臺北市數位實驗高級中等學校,學生自治會,臺北市數位實驗高中,數位實驗高中,臺北市數位實中,數位實中,數實,學生會,首頁">
-    <meta name="author" content="臺北市數位實驗高級中等學校學生自治會">
-    
-    <!-- Open Graph (OG) 標籤 (讓網頁在社群媒體分享時有更好的預覽效果) -->
-    <meta property="og:title" content="臺北市數位實驗高中學生自治會">
-    <meta property="og:description" content="臺北市數位實驗高中學生自治會的首頁">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tschool-students.github.io/">
-    <meta property="og:site_name" content="臺北市數位實驗高中學生自治會" />
-    
-    <!-- Twitter Card 標籤 (讓網頁在 Twitter 分享時有更好的預覽效果) -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="臺北市數位實驗高中學生自治會">
-    <meta name="twitter:description" content="臺北市數位實驗高中學生自治會的首頁">
+    <title>臺北市數位實驗高中學生自治會 | 首頁</title>
+    <link rel="icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <style>
-        
-    </style>
 </head>
 <body>
-    <header>
-        <!-- 【優化】將 Logo 與標題放在一起 -->
-        <div class="header-title">
-            <img class="logo-img" src="logo.png" alt="Logo">
-        </div>
-
-        <nav>
-            <a href="#" class="btn-gray">本會宗旨</a>
-            <a href="#" class="btn-gray">本會歷史</a>
-            <a href="https://drive.google.com/file/d/18pnYAc0KmnRSsD3XcCBsWHVxPirh5jIj/view?usp=sharing" class="btn-orange">組織架構</a>
-            <a href="#" class="btn-gray">幹部介紹</a>
-
-            <div class="social-links">
-                <a href="https://www.facebook.com/people/%E6%95%B8%E4%BD%8D%E5%AF%A6%E4%B8%AD%E5%AD%B8%E7%94%9F%E6%9C%83/61579395212418/" target="_blank" class="social-circle">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png" alt="Facebook">
-                </a>
-                <a href="https://www.instagram.com/tschool_student_council" target="_blank" class="social-circle">
-                    <img src="https://static.vecteezy.com/system/resources/previews/042/127/160/non_2x/instagram-logo-on-circle-style-with-transparent-background-free-png.png" alt="Instagram">
-                </a>
-                <a href="mailto:studentcouncil@tschool.tp.edu.tw" target="_blank" class="social-circle">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/014/440/980/small_2x/email-message-icon-design-in-blue-circle-png.png" alt="Email">
-                </a>
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="logo.png" alt="Logo">
+            </a>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">首頁</a>
+                <a href="about.html" class="nav-link">關於我們</a>
+                <a href="history.html" class="nav-link">歷史沿革</a>
+                <a href="organization.html" class="nav-link">組織架構</a>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/people/%E6%95%B8%E4%BD%8D%E5%AF%A6%E4%B8%AD%E5%AD%B8%E7%94%9F%E6%9C%83/61579395212418/" target="_blank" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/tschool_student_council" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="mailto:studentcouncil@tschool.tp.edu.tw" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
+
+    <!-- 主視覺區 -->
+    <header class="hero">
+        <h1>臺北市數位實驗高中<br><span>學生自治會</span></h1>
+        <p>以學生為主體 · 以對話為核心</p>
+        <a href="#announcements" class="btn-main">查看最新公告 <i class="fa-solid fa-arrow-down"></i></a>
     </header>
-    <p style="color: gray; text-align: right;">* 此為本會暫時性官方網站</p>
-    <main>
-        <section class="toolbox">
-            <h3>學生自治工具箱</h3>
-            <div id="toolbox-content" class="content-box">
-                <a href="https://docs.google.com/spreadsheets/d/1F0CVJPdU2FUgypLV7HFCf_jYroTK-n3nhu3UsqezDYs/edit?usp=sharing" target="_blank" class="toolbox-item">
-                    <i class="fa-solid fa-gauge"></i>
+
+    <main class="container">
+        <!-- 工具箱 -->
+        <section class="section" style="margin-bottom: 60px;">
+            <h3 style="margin-bottom: 20px; font-size: 1.5rem;"><i class="fa-solid fa-toolbox"></i> 自治工具箱</h3>
+            <div class="grid-3">
+                <a href="https://docs.google.com/spreadsheets/d/1F0CVJPdU2FUgypLV7HFCf_jYroTK-n3nhu3UsqezDYs/edit?usp=sharing" target="_blank" class="tool-item">
+                    <div class="tool-icon"><i class="fa-solid fa-gauge"></i></div>
                     <h4>成果報告</h4>
                 </a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6SQZPSC9cjs3ybpoInNu3WiEwZ2_RZRV5MmAh9uPPWcXSYw/viewform" target="_blank" class="toolbox-item">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <h4>提出學生權益案件</h4>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6SQZPSC9cjs3ybpoInNu3WiEwZ2_RZRV5MmAh9uPPWcXSYw/viewform" target="_blank" class="tool-item">
+                    <div class="tool-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <h4>權益案件</h4>
                 </a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwPPgbfbWNPMxHKaL_gp2ZilQaOpCpDZnB07AyuzJyVPrnag/viewform?usp=preview" target="_blank" class="toolbox-item">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <h4>跨屆代傳訊息服務申請</h4>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfwPPgbfbWNPMxHKaL_gp2ZilQaOpCpDZnB07AyuzJyVPrnag/viewform?usp=preview" target="_blank" class="tool-item">
+                    <div class="tool-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h4>跨屆傳訊</h4>
                 </a>
-                <a href="https://docs.google.com/spreadsheets/d/1A-OgyEWTPCvbd1GKUdVikcGecrGvgVrv8M1BEr5NWyM/edit?usp=sharing" class="toolbox-item">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                    <h4>透明化帳務</h4>
+                <a href="https://docs.google.com/spreadsheets/d/1A-OgyEWTPCvbd1GKUdVikcGecrGvgVrv8M1BEr5NWyM/edit?usp=sharing" target="_blank" class="tool-item">
+                    <div class="tool-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                    <h4>透明帳務</h4>
                 </a>
-                <a href="https://drive.google.com/drive/folders/1op8dT3GiBj5zCy78_Jw0mH9XFbxFOxuz?usp=sharing" class="toolbox-item">
-                    <i class="fa-solid fa-folder-closed"></i>
-                    <h4>雲端檔案專區</h4>
+                <a href="https://drive.google.com/drive/folders/1op8dT3GiBj5zCy78_Jw0mH9XFbxFOxuz?usp=sharing" target="_blank" class="tool-item">
+                    <div class="tool-icon"><i class="fa-solid fa-folder-closed"></i></div>
+                    <h4>雲端檔案</h4>
                 </a>
             </div>
         </section>
 
-        <section class="announcements">
-            <h3>公告</h3>
+        <!-- 公告區 -->
+        <section id="announcements">
+            <h3 style="margin-bottom: 20px; font-size: 1.5rem;"><i class="fa-solid fa-bell"></i> 最新公告</h3>
             
-            <div id="loading-spinner" class="spinner-container" style="display: none;">
-                <div class="spinner"></div>
-                <p>正在載入公告...</p>
+            <div id="loading-spinner" class="spinner"></div>
+            
+            <div id="announcements-list">
+                <!-- JS 動態生成 -->
             </div>
-
-            <div id="announcements-list" class="content-box">
-                <!-- 公告將會由 JavaScript 動態載入至此 -->
-            </div>
-            <div id="pagination-controls"></div>
-        </section>
-        
-        <section class="introduction">
-            <h3>簡介</h3>
-            <div id="introduction" class="content-box">
-                <p>「臺北市數位實驗高級中等學校學生自治會」是本校的學生自治組織，根據《組織章程》我們有以下宗旨：</p>
-                <!-- 【優化】改用 ul 列表呈現宗旨 -->
-                <ul>
-                    <li>實踐校園民主與學生自治精神。</li>
-                    <li>暢通本校與學生之意見交流管道。</li>
-                    <li>維護學生權益。</li>
-                    <li>維繫學生之間互動與連結。</li>
-                    <li>推動學生自治相關知能之普及。</li>
-                </ul>
-            </div>
-        </section>
-
-         <section class="history">
-            <h3>本會歷史</h3>
-            <!-- 【優化】改用時間軸呈現歷史 -->
-            <div id="history" class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h4>111年10月13日</h4>
-                        <p>創會，並正式制定本會組織章程。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h4>113年6月28日</h4>
-                        <p>本會進行第一次改組，增設行政部、美術組改組為美宣部、文宣組改組為書記部、其他各組改為各部。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h4>114年9月5日</h4>
-                        <p>本會進行第二次改組，書記部與總務部併入行政部並改組為秘書部、美宣部併入公關部、增設活動部。</p>
-                    </div>
-                </div>
-            </div>
+            <div id="pagination-controls" class="pagination"></div>
         </section>
     </main>
 
-    <!-- 【新增】頁尾 -->
     <footer>
-        <p>&copy; 2025 臺北市數位實驗高級中等學校學生自治會. All Rights Reserved.</p>
+        <div class="footer-content">
+            <p>&copy; 2025 臺北市數位實驗高級中等學校學生自治會. All Rights Reserved.</p>
+        </div>
     </footer>
-    <p style="display: none;">臺北市數位實驗高級中等學校,學生自治會,臺北市數位實驗高中,數位實驗高中,臺北市數位實中,數位實中,數實,學生會,首頁,網路高中,數位高中,網中,實驗高中,實中</p>
-    
-    <!-- 內嵌視窗 (Modal) -->
+
+    <!-- 公告 Modal -->
     <div id="announcement-modal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-date"></p>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <!-- ================== 【新增】2026學習分享會 彈出式廣告 ==================
-    <div id="event-popup" class="popup-overlay">
-        <div class="popup-content">
-            <span class="popup-close">&times;</span>
-            <h2>誠摯邀請 | 2026 學習分享會</h2>
-            <div class="popup-buttons">
-                <a href="https://tschool-students.github.io/expo2026" target="_blank" class="popup-btn btn-main">前往活動官網</a>
-                <a href="https://tschool-students.github.io/expo2026/invitation" target="_blank" class="popup-btn btn-secondary">查看精美邀請函</a>
+            <div class="modal-header">
+                <h2 id="modal-title">標題</h2>
+                <span class="close-button close-btn">&times;</span>
             </div>
+            <p id="modal-date" style="padding: 15px 30px 0; color: #666; font-size: 0.9rem;"></p>
+            <div id="modal-body" class="modal-body"></div>
         </div>
     </div>
-    ====================================================================== -->
 
     <script src="script.js"></script>
-    <!--<script> 彈出式廣告腳本
-        document.addEventListener('DOMContentLoaded', () => {
-            const popup = document.getElementById('event-popup');
-            const closeButton = popup.querySelector('.popup-close');
-
-            // 顯示彈出視窗的函式
-            const showPopup = () => {
-                popup.style.display = 'flex';
-            };
-
-            // 隱藏彈出視窗的函式
-            const hidePopup = () => {
-                popup.style.display = 'none';
-                // 使用 sessionStorage 記錄已顯示過，避免在同一個分頁中重複顯示
-                sessionStorage.setItem('popupShown', 'true');
-            };
-
-            // 檢查是否已經顯示過
-            if (!sessionStorage.getItem('popupShown')) {
-                // 延遲 1.5 秒後顯示，提供更好的使用者體驗
-                setTimeout(showPopup, 1500);
-            }
-
-            // 點擊關閉按鈕
-            closeButton.addEventListener('click', hidePopup);
-
-            // 點擊視窗外部區域關閉
-            popup.addEventListener('click', (event) => {
-                if (event.target === popup) {
-                    hidePopup();
-                }
-            });
-        });
-    </script>-->
 </body>
 </html>
