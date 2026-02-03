@@ -173,17 +173,17 @@ ul { list-style: none; }
 }
 
 /* 修正工具箱的格狀佈局 */
-.grid-3 {
+.grid-4 {
     display: grid;
     /* 電腦版預設：強制 3 欄排列，不再讓它因為寬度不足就隨意擠壓成直行 */
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
     width: 100%;
 }
 
 /* 平板與大螢幕手機：改為 2 欄排列 */
 @media (max-width: 900px) {
-    .grid-3 {
+    .grid-4 {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
@@ -191,7 +191,7 @@ ul { list-style: none; }
 
 /* 小型手機：縮小間距，維持 2 欄（避免佔滿畫面高度） */
 @media (max-width: 500px) {
-    .grid-3 {
+    .grid-4 {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
@@ -214,7 +214,7 @@ ul { list-style: none; }
     gap: 20px; 
 }
 
-.grid-3 { 
+.grid-4 { 
     display: grid; 
     /* 核心修改：將 250px 改為 140px，讓手機版能容納兩欄 */
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
@@ -255,7 +255,7 @@ ul { list-style: none; }
 
 /* 針對超小螢幕 (如 iPhone SE) 的特別優化 */
 @media (max-width: 350px) {
-    .grid-3 {
+    .grid-4 {
         grid-template-columns: repeat(2, 1fr); /* 強制兩欄 */
         gap: 10px;
     }
