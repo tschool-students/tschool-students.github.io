@@ -36,6 +36,8 @@ body::-webkit-scrollbar {/*避免 Safari 和 Chromium 瀏覽器瀏覽網頁時�
 }
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
+b { color:#3a537e;}
+b.gray { color:#8f8f8f;}
 ul { list-style: none; }
 
 /* ================= 導覽列 (Navbar) ================= */
@@ -282,9 +284,10 @@ ul { list-style: none; }
     content: ''; position: absolute; width: 4px; background: #EEE;
     top: 0; bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 2px;
 }
-.tl-item { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; }
-.tl-left { left: 0; text-align: right; }
+.tl-item { padding: 10px 40px; position: relative; width: 60%; box-sizing: border-box; }
+.tl-left { left: -10%; text-align: right; }
 .tl-right { left: 50%; }
+
 .tl-content {
     padding: 20px; background: white; border-radius: var(--radius);
     box-shadow: var(--card-shadow); position: relative;
@@ -433,5 +436,6 @@ footer {
     .hamburger { display: block; }
     .timeline::after { left: 20px; }
     .tl-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; }
-    .tl-left .tl-dot, .tl-right .tl-dot { left: 10px; right: auto; }
+    .tl-left {left: 10px; right: auto; }
+    .tl-right {left: 10px; right: auto; }
 }

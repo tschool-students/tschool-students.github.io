@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
 
         let allAnnouncements = [];
         let currentPage = 1;
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 顯示 Loading
         loadingSpinner.style.display = 'block';
 
-        fetch(GOOGLE_SCRIPT_URL)
+        fetch(ANNOUNCEMENTS_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
                 return response.json();
