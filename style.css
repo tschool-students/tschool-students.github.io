@@ -439,3 +439,125 @@ footer {
     .tl-left {left: 10px; right: auto; }
     .tl-right {left: 10px; right: auto; }
 }
+
+/* ================= 檔案專區 (File Zone) 樣式 ================= */
+
+/* 檔案列表容器 (預設單欄，但在大螢幕可以改雙欄) */
+#files-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+/* 檔案卡片 */
+.file-item {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+    display: flex; /* 讓圖示在左，文字在右 */
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: var(--primary);
+}
+
+/* 左側圖示區 */
+.file-icon-box {
+    width: 60px;
+    height: 60px;
+    background: #FFF5E5; /* 淺橘色背景 */
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0; /* 防止被擠壓 */
+}
+
+/* 右側內容區 */
+.file-content {
+    flex: 1;
+    overflow: hidden; /* 防止文字溢出 */
+}
+
+.file-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* 版本號標籤 */
+.file-version {
+    background: var(--secondary);
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.file-meta {
+    font-size: 0.85rem;
+    color: var(--gray);
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.file-meta i {
+    margin-right: 4px;
+    opacity: 0.7;
+}
+
+/* 標籤區域 (共用 tag-badge 樣式，但稍微調整間距) */
+.file-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-badge {
+    background: #f0f0f0;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+/* RWD: 手機版調整 */
+@media (max-width: 480px) {
+    #files-list {
+        grid-template-columns: 1fr; /* 手機版強制單欄 */
+    }
+    
+    .file-item {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .file-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .file-title {
+        font-size: 1rem;
+    }
+}

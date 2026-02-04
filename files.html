@@ -1,25 +1,30 @@
+<!-- files.html -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>歷史沿革 | 臺北市數位實驗高中學生自治會</title>
+    <title>檔案專區 | 臺北市數位實驗高中學生自治會</title>
     <link rel="icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 導覽列 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="brand"><img src="logo.png" alt="Logo"></a>
+            <a href="index.html" class="brand">
+                <img src="logo.png" alt="Logo">
+            </a>
             <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">首頁</a>
                 <a href="about.html" class="nav-link">關於我們</a>
-                <a href="history.html" class="nav-link active">歷史沿革</a>
+                <a href="history.html" class="nav-link">歷史沿革</a>
                 <a href="organization.html" class="nav-link">組織架構</a>
-                <a href="files.html" class="nav-link">檔案專區</a>
+                <a href="files.html" class="nav-link active">檔案專區</a>
+                
                 <div class="social-icons">
                     <a href="https://www.facebook.com/people/%E6%95%B8%E4%BD%8D%E5%AF%A6%E4%B8%AD%E5%AD%B8%E7%94%9F%E6%9C%83/61579395212418/" target="_blank" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/tschool_student_council" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
@@ -29,41 +34,22 @@
         </div>
     </nav>
 
+    <!-- 主視覺區 -->
     <div class="page-header">
-        <h1 class="page-title">歷史沿革</h1>
+        <h1 class="page-title">檔案專區</h1>
         <!--<p class="page-subtitle"></p>-->
     </div>
 
     <main class="container">
-        <div class="timeline">
-            <!-- 項目 1 -->
-            <div class="tl-item tl-left">
-                <div class="tl-content">
-                    <h4 style="color: var(--primary); margin-bottom: 5px;">111年10月13日</h4>
-                    <p>創會，由會員大會表決通過制定本會《組織章程》。</p>
-                </div>
+        <!-- 檔案列表區 -->
+        <section id="files-section">
+            <div id="loading-spinner" class="spinner"></div>
+            
+            <div id="files-list">
+                <!-- JS 動態生成檔案卡片 -->
             </div>
-            <!-- 項目 2 -->
-            <div class="tl-item tl-right">
-                <div class="tl-content">
-                    <h4 style="color: var(--primary); margin-bottom: 5px;">113年6月28日</h4>
-                    <p>本會第一次改組：
-                    <br>增設<b>行政部</b>、
-                    <br><b class="gray">美術組</b>改組為<b>美宣部</b>、
-                    <br><b class="gray">文宣組</b>改組為<b>書記部</b>。</p>
-                </div>
-            </div>
-            <!-- 項目 3 -->
-            <div class="tl-item tl-left">
-                <div class="tl-content">
-                    <h4 style="color: var(--primary); margin-bottom: 5px;">114年9月5日</h4>
-                    <p>本會第二次改組：
-                    <br><b class="gray">書記部</b>、<b class="gray">總務部</b>與<b class="gray">行政部</b>合併改組為<b>秘書部</b>、
-                    <br><b class="gray">美宣部</b>併入<b>公關部</b>、
-                    <br>增設<b>活動部</b>。</p>
-                </div>
-            </div>
-        </div>
+            <div id="pagination-controls" class="pagination"></div>
+        </section>
     </main>
 
     <footer>
@@ -71,6 +57,7 @@
             <p>&copy; 2026 臺北市數位實驗高級中等學校學生自治會. All Rights Reserved.</p>
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
