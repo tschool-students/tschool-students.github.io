@@ -237,6 +237,12 @@ ul { list-style: none; }
     transition: 0.3s;
 }
 
+.tool-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: var(--primary);
+}
+
 .tool-item h4 {
     font-size: 0.95rem; /* 稍微縮小字體以免折行 */
     margin-top: 5px;
