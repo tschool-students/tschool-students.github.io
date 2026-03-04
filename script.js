@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        const BASE_URL = 'https://script.google.com/a/macros/tschool.tp.edu.tw/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
         const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
 
         let allAnnouncements = [];
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginationControls = document.getElementById('pagination-controls');
 
         // 設定 API 網址，指定讀取 sheet=files
-        const BASE_URL = 'https://script.google.com/a/macros/tschool.tp.edu.tw/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
         const FILES_URL = BASE_URL + '?sheet=files';
 
         let allFiles = [];
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sectionMain = document.getElementById('section-main');
         const sectionAdmin = document.getElementById('section-admin');
 
-        const BASE_URL = 'https://script.google.com/a/macros/tschool.tp.edu.tw/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec';
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec';
         const TEAM_URL = BASE_URL + '?sheet=team';
         const STORAGE_KEY = 'tschool_team_data_v1'; // 快取鍵名 (若資料結構大改，可改 v2 強制刷新)
 
