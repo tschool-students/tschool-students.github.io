@@ -36,7 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
+<<<<<<< HEAD
         const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
+=======
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+>>>>>>> parent of 4ceb687 (Create team.html)
         const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
 
         let allAnnouncements = [];
@@ -171,7 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginationControls = document.getElementById('pagination-controls');
 
         // 設定 API 網址，指定讀取 sheet=files
+<<<<<<< HEAD
         const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
+=======
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+>>>>>>> parent of 4ceb687 (Create team.html)
         const FILES_URL = BASE_URL + '?sheet=files';
 
         let allFiles = [];
@@ -279,135 +287,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 paginationControls.appendChild(btn);
             }
         }
-    }
-    // ==========================================
-    // 4. 幹部介紹系統 (含快取與自動更新)
-    // ==========================================
-    const teamMainContainer = document.getElementById('team-main-container');
-    const teamAdminContainer = document.getElementById('team-admin-container');
-
-    // 只有在幹部頁面才執行
-    if (teamMainContainer && teamAdminContainer) {
-        const teamLoading = document.getElementById('team-loading');
-        const sectionMain = document.getElementById('section-main');
-        const sectionAdmin = document.getElementById('section-admin');
-
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec';
-        const TEAM_URL = BASE_URL + '?sheet=team';
-        const STORAGE_KEY = 'tschool_team_data_v1'; // 快取鍵名 (若資料結構大改，可改 v2 強制刷新)
-
-        // 核心函式：渲染幹部卡片
-        function renderTeam(data) {
-            // 清空容器
-            teamMainContainer.innerHTML = '';
-            teamAdminContainer.innerHTML = '';
-            
-            let hasMain = false;
-            let hasAdmin = false;
-
-            data.forEach(member => {
-                // 產生卡片 HTML
-                const card = document.createElement('div');
-                card.classList.add('card', 'team-card');
-
-                // 處理圖片 (若無圖片則使用 UI Avatars 生成預設圖)
-                const imgSrc = member.image ? member.image : `https://ui-avatars.com/api/?name=${member.name}&background=random&size=150`;
-
-                // 處理 Email 按鈕 (若無則不顯示)
-                const emailHtml = member.email ? `
-                    <div class="team-contact">
-                        <a href="mailto:${member.email}" target="_blank">
-                            <i class="fa-solid fa-envelope"></i> 聯絡信箱
-                        </a>
-                    </div>` : '<div style="margin-bottom:20px;"></div>';
-
-                // 處理更多資訊按鈕 (若無連結則顯示為純文字或隱藏)
-                const linkHtml = member.link ? `
-                    <a href="${member.link}" class="team-more-btn" target="_blank">
-                        更多資訊 <i class="fa-solid fa-arrow-right"></i>
-                    </a>` : `<span class="team-more-btn" style="opacity:0.5; cursor:default;">更多資訊</span>`;
-
-                card.innerHTML = `
-                    <div class="profile-box">
-                        <img src="${imgSrc}" alt="${member.name}" class="profile-img">
-                    </div>
-                    <h3>${member.name}</h3>
-                    <p class="team-role">${member.role}</p>
-                    ${emailHtml}
-                    ${linkHtml}
-                `;
-
-                // 依據 category 分類放入對應容器
-                if (member.category === 'main') {
-                    teamMainContainer.appendChild(card);
-                    hasMain = true;
-                } else {
-                    teamAdminContainer.appendChild(card);
-                    hasAdmin = true;
-                }
-            });
-
-            // 控制區塊顯示 (如果有資料才顯示該區塊標題)
-            sectionMain.style.display = hasMain ? 'block' : 'none';
-            sectionAdmin.style.display = hasAdmin ? 'block' : 'none';
-        }
-
-        // 初始化流程
-        function initTeam() {
-            // 1. 嘗試讀取快取
-            const cachedData = localStorage.getItem(STORAGE_KEY);
-            let isCached = false;
-
-            if (cachedData) {
-                try {
-                    const parsedData = JSON.parse(cachedData);
-                    if (Array.isArray(parsedData) && parsedData.length > 0) {
-                        console.log('Loading team from cache...');
-                        renderTeam(parsedData);
-                        isCached = true;
-                    }
-                } catch (e) {
-                    console.error('Cache parse error', e);
-                    localStorage.removeItem(STORAGE_KEY);
-                }
-            }
-
-            // 如果沒快取，顯示 Loading
-            if (!isCached) {
-                teamLoading.style.display = 'block';
-            }
-
-            // 2. 背景抓取新資料 (Stale-while-revalidate 策略)
-            fetch(TEAM_URL)
-                .then(response => response.json())
-                .then(newData => {
-                    teamLoading.style.display = 'none'; // 隱藏 Loading
-
-                    // 3. 比對資料是否變更
-                    // 這裡使用 JSON 字串簡單比對，若資料量大建議用 deep equal，但此處足夠
-                    if (cachedData !== JSON.stringify(newData)) {
-                        console.log('Data updated from server, refreshing UI...');
-                        
-                        // 更新快取
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
-                        
-                        // 重新渲染畫面
-                        renderTeam(newData);
-                    } else {
-                        console.log('Data is up to date.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch team error:', error);
-                    teamLoading.style.display = 'none';
-                    if (!isCached) {
-                        // 如果沒快取又抓失敗，顯示錯誤訊息
-                        teamMainContainer.innerHTML = '<p>載入失敗，請檢查網路。</p>';
-                    }
-                });
-        }
-
-        // 啟動
-        initTeam();
     }
 });
