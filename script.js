@@ -36,11 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-<<<<<<< HEAD
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
-=======
         const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
->>>>>>> parent of 4ceb687 (Create team.html)
         const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
 
         let allAnnouncements = [];
@@ -175,11 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginationControls = document.getElementById('pagination-controls');
 
         // 設定 API 網址，指定讀取 sheet=files
-<<<<<<< HEAD
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbzXb6SsfxLVm6ny59fDYMq7VbLEJPdh7USHz0yUTKTyoLExiHh3B5tA75vW8sArMoA/exec'; 
-=======
         const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
->>>>>>> parent of 4ceb687 (Create team.html)
         const FILES_URL = BASE_URL + '?sheet=files';
 
         let allFiles = [];
