@@ -1,25 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
-    // 0. 增強版 CSV 解析工具 (具備智慧對應與除錯功能)
+    // 0. 增強版 CSV 解析工具 (支援自動略過上方排版列)
     // ==========================================
     function parseCSV(csvText) {
-        // 移除可能存在的 BOM 字元 (Byte Order Mark) 與多餘空白
+        // 移除 BOM 與前後空白
         csvText = csvText.replace(/^\uFEFF/, '').trim();
         const lines = csvText.split(/\r\n|\n|\r/);
         if (lines.length < 1) return [];
         
-        function parseRow(row) {
+        function parseRow(rowStr) {
             let cols = [];
             let cur = '';
             let inQuote = false;
-            for (let i = 0; i < row.length; i++) {
-                let char = row[i];
+            for (let i = 0; i < rowStr.length; i++) {
+                let char = rowStr[i];
                 if (char === '"') {
-                    if (inQuote && row[i + 1] === '"') {
+                    if (inQuote && rowStr[i + 1] === '"') {
                         cur += '"';
-                        i++; // skip escaped quote
+                        i++; // 跳過跳脫的引號
                     } else {
-                        inQuote = !inQuote; // toggle quote
+                        inQuote = !inQuote;
                     }
                 } else if (char === ',' && !inQuote) {
                     cols.push(cur);
@@ -32,44 +32,72 @@ document.addEventListener('DOMContentLoaded', () => {
             return cols;
         }
 
-        // 找到第一行標題列 (略過可能的空行)
-        let headerLineIdx = 0;
-        while (headerLineIdx < lines.length && !lines[headerLineIdx].trim()) {
-            headerLineIdx++;
+        // --- 核心修正：自動尋找真正的「標頭列」 ---
+        let headerLineIdx = -1;
+        let headers = [];
+        
+        // 往下掃描前 15 列，尋找真正的標頭
+        for (let i = 0; i < Math.min(lines.length, 15); i++) {
+            if (!lines[i].trim()) continue;
+            const row = parseRow(lines[i]).map(h => h.trim().toLowerCase());
+            
+            // 如果這列包含這些關鍵字，認定為標頭列
+            if (row.includes('title') || row.includes('id') || row.includes('date') || 
+                row.includes('標題') || row.includes('公告標題') || row.includes('姓名')) {
+                headerLineIdx = i;
+                headers = row;
+                // 若直接找到精準的英文 'title'，就確定是這行了，直接中斷掃描
+                if (row.includes('title')) break; 
+            }
         }
-        if (headerLineIdx >= lines.length) return [];
 
-        // 轉換所有標題為小寫並清除空白，確保高容錯率
-        const headers = parseRow(lines[headerLineIdx]).map(h => h.trim().toLowerCase());
+        // 萬一找不到，退回預設：抓第一行有字的
+        if (headerLineIdx === -1) {
+            for(let i=0; i<lines.length; i++) {
+                if(lines[i].trim()) {
+                    headerLineIdx = i;
+                    headers = parseRow(lines[i]).map(h => h.trim().toLowerCase());
+                    break;
+                }
+            }
+        }
+
         const data = [];
         
+        // 從標頭的「下一列」開始才是真正的資料
         for (let i = headerLineIdx + 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue; // 略過空行
+            if (!lines[i].trim()) continue;
             const row = parseRow(lines[i]);
-            const obj = {};
             
+            // 略過完全空白的列
+            if (row.join('').trim() === '') continue;
+
+            const obj = {};
             headers.forEach((header, index) => {
                 if (header) {
                     obj[header] = row[index] ? row[index].trim() : '';
                 }
             });
 
-            // 💡 智慧備援對應：允許您的 Google Sheet 自由使用中文標題
-            obj.title = obj.title || obj['標題'] || obj['名稱'] || obj['檔案名稱'] || '';
+            // 中英文欄位智慧對應
+            obj.title = obj.title || obj['公告標題'] || obj['標題'] || obj['名稱'] || '';
             obj.date = obj.date || obj['日期'] || obj['發布日期'] || '';
-            obj.author = obj.author || obj['作者'] || obj['單位'] || obj['發布者'] || obj['發佈單位'] || '';
-            obj.number = obj.number || obj['字號'] || obj['公文號'] || obj['發文字號'] || '';
-            obj.content = obj.content || obj['內容'] || obj['公告內容'] || obj['說明'] || '';
+            obj.author = obj.author || obj['發布者'] || obj['作者'] || obj['單位'] || '';
+            obj.number = obj.number || obj['公告字號'] || obj['字號'] || obj['公文號'] || '';
+            obj.content = obj.content || obj['公告內文'] || obj['內容'] || obj['說明'] || '';
             obj.tags = obj.tags || obj['標籤'] || obj['分類'] || '';
             
-            obj.link = obj.link || obj.url || obj['連結'] || obj['網址'] || obj['檔案連結'] || '';
+            obj.link = obj.link || obj.url || obj['連結'] || obj['網址'] || '';
             obj.version = obj.version || obj['版本'] || obj['版號'] || '';
             
-            obj.category = obj.category || obj['類別'] || obj['組別'] || obj['群組'] || '';
+            obj.category = obj.category || obj['類別'] || obj['組別'] || '';
             obj.name = obj.name || obj['姓名'] || obj['幹部姓名'] || obj.title || '';
-            obj.role = obj.role || obj['職稱'] || obj['職位'] || obj['角色'] || '';
-            obj.image = obj.image || obj['照片'] || obj['圖片'] || obj['大頭照'] || '';
-            obj.email = obj.email || obj['信箱'] || obj['電子郵件'] || obj['聯絡信箱'] || '';
+            obj.role = obj.role || obj['職稱'] || obj['職位'] || '';
+            obj.image = obj.image || obj['照片'] || obj['圖片'] || '';
+            obj.email = obj.email || obj['信箱'] || obj['電子郵件'] || '';
+
+            // 防呆機制：如果這一列連標題(或姓名)都沒有，極可能是底部的空白欄位或無效資料，直接略過
+            if (!obj.title && !obj.name) continue;
 
             data.push(obj);
         }
@@ -78,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 發布的 Google Sheet URL Base
     const SHEET_BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSE8Ds0bstbH-kJi4meUcfsJzg32Tvh_RoHXNrgHiPHu3OGY1eqt0LUs0302YzKKCrhjUPUDoOTYkrA/pub';
-
 
     // ==========================================
     // 1. 手機版選單切換 (Mobile Toggle)
@@ -115,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        // 指定讀取公告表單 (gid=0)，加入參數防快取機制
         const ANNOUNCEMENTS_URL = SHEET_BASE_URL + '?gid=0&single=true&output=csv&t=' + Date.now(); 
 
         let allAnnouncements = [];
@@ -134,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 parsedData = parsedData.map(item => {
                     if (item.tags && typeof item.tags === 'string') {
-                        // 支援半形逗號、全形逗號、頓號來做為標籤分隔
+                        // 支援各種逗號分隔標籤
                         item.tags = item.tags.split(/,|，|、/).map(t => t.trim()).filter(t => t);
                     } else if (!item.tags) {
                         item.tags = [];
@@ -219,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalDate.textContent = `日期：${announcement.date} | 單位：${announcement.author} | 字號：${announcement.number || '無'}`;
             
             let content = announcement.content || "";
+            // 將內容中 HTML 的連結標籤還原 (以防 Google Sheets 輸出時有跳脫問題)
             let formattedContent = content.replace(/\r\n|\n|\r/g, '<br>');
             
             modalBody.innerHTML = formattedContent;
@@ -253,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingSpinner = document.getElementById('loading-spinner');
         const paginationControls = document.getElementById('pagination-controls');
 
-        // 指定讀取檔案表單 (gid=406984821)
         const FILES_URL = SHEET_BASE_URL + '?gid=406984821&single=true&output=csv&t=' + Date.now();
 
         let allFiles = [];
@@ -372,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (teamMainList && teamAdminList) {
         const loadingSpinnerTeam = document.getElementById('loading-spinner');
         
-        // 指定讀取團隊表單 (gid=683145411)
         const TEAM_URL = SHEET_BASE_URL + '?gid=683145411&single=true&output=csv&t=' + Date.now(); 
 
         if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'block';
