@@ -1,5 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
+    // 0. CSV 解析工具 (CSV to JSON)
+    // ==========================================
+    function parseCSV(csvText) {
+        const lines = csvText.split(/\r\n|\n|\r/);
+        if (lines.length < 1) return [];
+        
+        function parseRow(row) {
+            let cols = [];
+            let cur = '';
+            let inQuote = false;
+            for (let i = 0; i < row.length; i++) {
+                let char = row[i];
+                if (char === '"') {
+                    if (inQuote && row[i + 1] === '"') {
+                        cur += '"';
+                        i++; // skip next quote
+                    } else {
+                        inQuote = !inQuote;
+                    }
+                } else if (char === ',' && !inQuote) {
+                    cols.push(cur);
+                    cur = '';
+                } else {
+                    cur += char;
+                }
+            }
+            cols.push(cur);
+            return cols;
+        }
+
+        const headers = parseRow(lines[0]).map(h => h.trim());
+        const data = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            const row = parseRow(lines[i]);
+            const obj = {};
+            headers.forEach((header, index) => {
+                // 將空白替換掉，確保屬性對應正常
+                obj[header] = row[index] ? row[index].trim() : '';
+            });
+            data.push(obj);
+        }
+        return data;
+    }
+
+    // 發布的 Google Sheet URL Base (使用公開發佈的網址)
+    const SHEET_BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSE8Ds0bstbH-kJi4meUcfsJzg32Tvh_RoHXNrgHiPHu3OGY1eqt0LUs0302YzKKCrhjUPUDoOTYkrA/pub';
+
+    // ==========================================
     // 1. 手機版選單切換 (Mobile Toggle) - 所有頁面通用
     // ==========================================
     const hamburger = document.querySelector('.hamburger');
@@ -36,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
-        const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
+        // 指定讀取公告表單 (gid=0)
+        const ANNOUNCEMENTS_URL = SHEET_BASE_URL + '?gid=0&single=true&output=csv'; 
 
         let allAnnouncements = [];
         let currentPage = 1;
@@ -49,10 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(ANNOUNCEMENTS_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.json();
+                return response.text(); // 改讀取文字 (CSV)
             })
-            .then(data => {
-                allAnnouncements = data;
+            .then(csv => {
+                let parsedData = parseCSV(csv);
+                // 處理 CSV 格式的 tags，將逗號分隔字串轉為陣列
+                parsedData = parsedData.map(item => {
+                    if (item.tags && typeof item.tags === 'string') {
+                        item.tags = item.tags.split(',').map(t => t.trim()).filter(t => t);
+                    } else if (!item.tags) {
+                        item.tags = [];
+                    }
+                    return item;
+                });
+                allAnnouncements = parsedData;
                 loadingSpinner.style.display = 'none';
 
                 if (allAnnouncements.length > 0) {
@@ -159,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    } // <--- 修正：這裡結束公告的 if 區塊
+    }
 
     // ==========================================
     // 3. 檔案專區操作 (獨立於公告邏輯之外)
@@ -170,9 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingSpinner = document.getElementById('loading-spinner');
         const paginationControls = document.getElementById('pagination-controls');
 
-        // 設定 API 網址，指定讀取 sheet=files
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
-        const FILES_URL = BASE_URL + '?sheet=files';
+        // 指定讀取檔案表單 (gid=406984821)
+        const FILES_URL = SHEET_BASE_URL + '?gid=406984821&single=true&output=csv';
 
         let allFiles = [];
         let currentPage = 1;
@@ -184,10 +243,20 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(FILES_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.json();
+                return response.text(); // 改讀取文字 (CSV)
             })
-            .then(data => {
-                allFiles = data;
+            .then(csv => {
+                let parsedData = parseCSV(csv);
+                // 處理 CSV 格式的 tags，將逗號分隔字串轉為陣列
+                parsedData = parsedData.map(item => {
+                    if (item.tags && typeof item.tags === 'string') {
+                        item.tags = item.tags.split(',').map(t => t.trim()).filter(t => t);
+                    } else if (!item.tags) {
+                        item.tags = [];
+                    }
+                    return item;
+                });
+                allFiles = parsedData;
                 loadingSpinner.style.display = 'none';
 
                 if (allFiles.length > 0) {
@@ -233,12 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${item.title}
                             ${versionHtml}
                         </div>
-                        <!--
-                        <div class="file-meta">
-                            <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
-                            <span><i class="fa-solid fa-user-pen"></i> ${item.author}</span>
-                        </div>
-                        -->
                         <div class="file-tags">${tagsHtml}</div>
                     </div>
                 `;
@@ -280,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
     // ==========================================
     // 4. 幹部介紹自動讀取邏輯
     // ==========================================
@@ -289,9 +353,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (teamMainList && teamAdminList) {
         const loadingSpinnerTeam = document.getElementById('loading-spinner');
         
-        // 指定抓取 sheet=team 的資料
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
-        const TEAM_URL = BASE_URL + '?sheet=team'; 
+        // 指定讀取團隊表單 (gid=683145411)
+        const TEAM_URL = SHEET_BASE_URL + '?gid=683145411&single=true&output=csv'; 
 
         // 顯示 Loading
         if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'block';
@@ -299,9 +362,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(TEAM_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.json();
+                return response.text(); // 改讀取文字 (CSV)
             })
-            .then(data => {
+            .then(csv => {
+                const data = parseCSV(csv);
                 if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'none';
 
                 // 將資料依據 category (main 或 admin) 進行分類
