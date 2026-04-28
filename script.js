@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
-    // 0. CSV 解析工具 (CSV to JSON)
+    // 0. 增強版 CSV 解析工具 (具備智慧對應與除錯功能)
     // ==========================================
     function parseCSV(csvText) {
+        // 移除可能存在的 BOM 字元 (Byte Order Mark) 與多餘空白
+        csvText = csvText.replace(/^\uFEFF/, '').trim();
         const lines = csvText.split(/\r\n|\n|\r/);
         if (lines.length < 1) return [];
         
@@ -15,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (char === '"') {
                     if (inQuote && row[i + 1] === '"') {
                         cur += '"';
-                        i++; // skip next quote
+                        i++; // skip escaped quote
                     } else {
-                        inQuote = !inQuote;
+                        inQuote = !inQuote; // toggle quote
                     }
                 } else if (char === ',' && !inQuote) {
                     cols.push(cur);
@@ -30,27 +32,56 @@ document.addEventListener('DOMContentLoaded', () => {
             return cols;
         }
 
-        const headers = parseRow(lines[0]).map(h => h.trim());
+        // 找到第一行標題列 (略過可能的空行)
+        let headerLineIdx = 0;
+        while (headerLineIdx < lines.length && !lines[headerLineIdx].trim()) {
+            headerLineIdx++;
+        }
+        if (headerLineIdx >= lines.length) return [];
+
+        // 轉換所有標題為小寫並清除空白，確保高容錯率
+        const headers = parseRow(lines[headerLineIdx]).map(h => h.trim().toLowerCase());
         const data = [];
         
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
+        for (let i = headerLineIdx + 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue; // 略過空行
             const row = parseRow(lines[i]);
             const obj = {};
+            
             headers.forEach((header, index) => {
-                // 將空白替換掉，確保屬性對應正常
-                obj[header] = row[index] ? row[index].trim() : '';
+                if (header) {
+                    obj[header] = row[index] ? row[index].trim() : '';
+                }
             });
+
+            // 💡 智慧備援對應：允許您的 Google Sheet 自由使用中文標題
+            obj.title = obj.title || obj['標題'] || obj['名稱'] || obj['檔案名稱'] || '';
+            obj.date = obj.date || obj['日期'] || obj['發布日期'] || '';
+            obj.author = obj.author || obj['作者'] || obj['單位'] || obj['發布者'] || obj['發佈單位'] || '';
+            obj.number = obj.number || obj['字號'] || obj['公文號'] || obj['發文字號'] || '';
+            obj.content = obj.content || obj['內容'] || obj['公告內容'] || obj['說明'] || '';
+            obj.tags = obj.tags || obj['標籤'] || obj['分類'] || '';
+            
+            obj.link = obj.link || obj.url || obj['連結'] || obj['網址'] || obj['檔案連結'] || '';
+            obj.version = obj.version || obj['版本'] || obj['版號'] || '';
+            
+            obj.category = obj.category || obj['類別'] || obj['組別'] || obj['群組'] || '';
+            obj.name = obj.name || obj['姓名'] || obj['幹部姓名'] || obj.title || '';
+            obj.role = obj.role || obj['職稱'] || obj['職位'] || obj['角色'] || '';
+            obj.image = obj.image || obj['照片'] || obj['圖片'] || obj['大頭照'] || '';
+            obj.email = obj.email || obj['信箱'] || obj['電子郵件'] || obj['聯絡信箱'] || '';
+
             data.push(obj);
         }
         return data;
     }
 
-    // 發布的 Google Sheet URL Base (使用公開發佈的網址)
+    // 發布的 Google Sheet URL Base
     const SHEET_BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSE8Ds0bstbH-kJi4meUcfsJzg32Tvh_RoHXNrgHiPHu3OGY1eqt0LUs0302YzKKCrhjUPUDoOTYkrA/pub';
 
+
     // ==========================================
-    // 1. 手機版選單切換 (Mobile Toggle) - 所有頁面通用
+    // 1. 手機版選單切換 (Mobile Toggle)
     // ==========================================
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -70,48 +101,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 2. 公告系統邏輯 (包含 Modal)
+    // 2. 公告系統邏輯
     // ==========================================
     const announcementsList = document.getElementById('announcements-list');
     
-    // 只有當頁面上有 announcements-list 時才執行抓取邏輯
     if (announcementsList) {
         const loadingSpinner = document.getElementById('loading-spinner');
         const paginationControls = document.getElementById('pagination-controls');
         
-        // Modal 元素
         const modal = document.getElementById('announcement-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalDate = document.getElementById('modal-date');
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        // 指定讀取公告表單 (gid=0)
-        const ANNOUNCEMENTS_URL = SHEET_BASE_URL + '?gid=0&single=true&output=csv'; 
+        // 指定讀取公告表單 (gid=0)，加入參數防快取機制
+        const ANNOUNCEMENTS_URL = SHEET_BASE_URL + '?gid=0&single=true&output=csv&t=' + Date.now(); 
 
         let allAnnouncements = [];
         let currentPage = 1;
         const announcementsPerPage = 6;
 
-        // 顯示 Loading
         loadingSpinner.style.display = 'block';
 
         fetch(ANNOUNCEMENTS_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.text(); // 改讀取文字 (CSV)
+                return response.text();
             })
             .then(csv => {
                 let parsedData = parseCSV(csv);
-                // 處理 CSV 格式的 tags，將逗號分隔字串轉為陣列
+                
                 parsedData = parsedData.map(item => {
                     if (item.tags && typeof item.tags === 'string') {
-                        item.tags = item.tags.split(',').map(t => t.trim()).filter(t => t);
+                        // 支援半形逗號、全形逗號、頓號來做為標籤分隔
+                        item.tags = item.tags.split(/,|，|、/).map(t => t.trim()).filter(t => t);
                     } else if (!item.tags) {
                         item.tags = [];
                     }
                     return item;
                 });
+                
                 allAnnouncements = parsedData;
                 loadingSpinner.style.display = 'none';
 
@@ -184,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // --- Modal 操作區塊 (僅用於公告) ---
         function openModal(announcement) {
             modalTitle.textContent = announcement.title;
             modalDate.textContent = `日期：${announcement.date} | 單位：${announcement.author} | 字號：${announcement.number || '無'}`;
@@ -202,27 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'auto'; 
         }
 
-        if(closeButton) {
-            closeButton.addEventListener('click', closeModal);
-        }
+        if(closeButton) closeButton.addEventListener('click', closeModal);
 
         window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                closeModal();
-            }
+            if (event.target == modal) closeModal();
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                if (modal.style.display === 'flex') {
-                    closeModal();
-                }
+            if (event.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal();
             }
         });
     }
 
     // ==========================================
-    // 3. 檔案專區操作 (獨立於公告邏輯之外)
+    // 3. 檔案專區操作
     // ==========================================
     const filesList = document.getElementById('files-list');
     
@@ -231,31 +254,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginationControls = document.getElementById('pagination-controls');
 
         // 指定讀取檔案表單 (gid=406984821)
-        const FILES_URL = SHEET_BASE_URL + '?gid=406984821&single=true&output=csv';
+        const FILES_URL = SHEET_BASE_URL + '?gid=406984821&single=true&output=csv&t=' + Date.now();
 
         let allFiles = [];
         let currentPage = 1;
-        const filesPerPage = 8; // 每頁顯示 8 個檔案
+        const filesPerPage = 8; 
 
-        // 顯示 Loading
         loadingSpinner.style.display = 'block';
 
         fetch(FILES_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.text(); // 改讀取文字 (CSV)
+                return response.text();
             })
             .then(csv => {
                 let parsedData = parseCSV(csv);
-                // 處理 CSV 格式的 tags，將逗號分隔字串轉為陣列
+                
                 parsedData = parsedData.map(item => {
                     if (item.tags && typeof item.tags === 'string') {
-                        item.tags = item.tags.split(',').map(t => t.trim()).filter(t => t);
+                        item.tags = item.tags.split(/,|，|、/).map(t => t.trim()).filter(t => t);
                     } else if (!item.tags) {
                         item.tags = [];
                     }
                     return item;
                 });
+                
                 allFiles = parsedData;
                 loadingSpinner.style.display = 'none';
 
@@ -306,13 +329,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
 
-                // 點擊直接開啟連結
                 div.addEventListener('click', () => {
                     if (item.link) {
                         window.open(item.link, '_blank');
-                    } else if (item.url) {
-                        // 兼容 url 欄位
-                        window.open(item.url, '_blank');
                     } else {
                         alert('此檔案暫無連結');
                     }
@@ -354,25 +373,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingSpinnerTeam = document.getElementById('loading-spinner');
         
         // 指定讀取團隊表單 (gid=683145411)
-        const TEAM_URL = SHEET_BASE_URL + '?gid=683145411&single=true&output=csv'; 
+        const TEAM_URL = SHEET_BASE_URL + '?gid=683145411&single=true&output=csv&t=' + Date.now(); 
 
-        // 顯示 Loading
         if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'block';
 
         fetch(TEAM_URL)
             .then(response => {
                 if (!response.ok) throw new Error('Network error');
-                return response.text(); // 改讀取文字 (CSV)
+                return response.text();
             })
             .then(csv => {
                 const data = parseCSV(csv);
                 if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'none';
 
-                // 將資料依據 category (main 或 admin) 進行分類
                 const mainTeam = data.filter(member => member.category === 'main');
                 const adminTeam = data.filter(member => member.category === 'admin');
 
-                // 呼叫渲染函數
                 renderTeamCards(mainTeam, teamMainList);
                 renderTeamCards(adminTeam, teamAdminList);
             })
@@ -382,9 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 teamMainList.innerHTML = '<p style="color: red; grid-column: 1/-1;">幹部資料載入失敗，請稍後再試。</p>';
             });
 
-        // 建立卡片的共用函數
         function renderTeamCards(members, container) {
-            container.innerHTML = ''; // 清空預設內容
+            container.innerHTML = ''; 
 
             if (members.length === 0) {
                 container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">目前尚無資料</p>';
@@ -395,17 +410,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const div = document.createElement('div');
                 div.classList.add('card', 'team-card');
 
-                // 處理照片 (若無提供連結，則顯示 FontAwesome 預設人像)
                 const imageHtml = member.image 
                     ? `<img src="${member.image}" alt="${member.name}照片" class="profile-img">`
                     : `<div style="width: 120px; height: 120px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: #bbb;"><i class="fa-solid fa-user fa-3x"></i></div>`;
 
-                // 處理 Email (若為空字串則不顯示)
                 const emailHtml = member.email 
                     ? `<div class="team-contact"><a href="mailto:${member.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${member.email}</a></div>` 
                     : '';
 
-                // 處理更多資訊 (若為空字串則不顯示)
                 const linkHtml = member.link 
                     ? `<a href="${member.link}" class="team-more-btn" target="_blank">更多資訊 <i class="fa-solid fa-arrow-right"></i></a>` 
                     : '';
