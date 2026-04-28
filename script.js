@@ -1,62 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
-    // 0. 增強版 CSV 解析工具 (支援自動略過上方排版列)
+    // 0. 完美版 CSV 解析工具 (支援儲存格內換行)
     // ==========================================
     function parseCSV(csvText) {
         // 移除 BOM 與前後空白
         csvText = csvText.replace(/^\uFEFF/, '').trim();
-        const lines = csvText.split(/\r\n|\n|\r/);
-        if (lines.length < 1) return [];
-        
-        function parseRow(rowStr) {
-            let cols = [];
-            let cur = '';
-            let inQuote = false;
-            for (let i = 0; i < rowStr.length; i++) {
-                let char = rowStr[i];
-                if (char === '"') {
-                    if (inQuote && rowStr[i + 1] === '"') {
-                        cur += '"';
-                        i++; // 跳過跳脫的引號
-                    } else {
-                        inQuote = !inQuote;
-                    }
-                } else if (char === ',' && !inQuote) {
-                    cols.push(cur);
-                    cur = '';
+        if (!csvText) return [];
+
+        const rows = [];
+        let currentRow = [];
+        let currentCell = '';
+        let inQuote = false;
+
+        // 逐字元解析，完美處理儲存格內的換行
+        for (let i = 0; i < csvText.length; i++) {
+            let char = csvText[i];
+            let nextChar = csvText[i + 1];
+
+            if (char === '"') {
+                if (inQuote && nextChar === '"') {
+                    // 處理跳脫的雙引號 ("")
+                    currentCell += '"';
+                    i++; 
                 } else {
-                    cur += char;
+                    inQuote = !inQuote;
                 }
+            } else if (char === ',' && !inQuote) {
+                currentRow.push(currentCell);
+                currentCell = '';
+            } else if ((char === '\r' || char === '\n') && !inQuote) {
+                // 處理 Windows (\r\n) 或 Linux (\n) 的換行
+                if (char === '\r' && nextChar === '\n') {
+                    i++;
+                }
+                currentRow.push(currentCell);
+                rows.push(currentRow);
+                currentRow = [];
+                currentCell = '';
+            } else {
+                currentCell += char;
             }
-            cols.push(cur);
-            return cols;
+        }
+        
+        // 推入最後一個字元與最後一列
+        if (currentCell || currentRow.length > 0) {
+            currentRow.push(currentCell);
+            rows.push(currentRow);
         }
 
-        // --- 核心修正：自動尋找真正的「標頭列」 ---
+        // --- 自動尋找真正的「標頭列」 ---
         let headerLineIdx = -1;
         let headers = [];
         
-        // 往下掃描前 15 列，尋找真正的標頭
-        for (let i = 0; i < Math.min(lines.length, 15); i++) {
-            if (!lines[i].trim()) continue;
-            const row = parseRow(lines[i]).map(h => h.trim().toLowerCase());
+        for (let i = 0; i < Math.min(rows.length, 15); i++) {
+            const rowStr = rows[i].join('').trim();
+            if (!rowStr) continue;
+
+            const row = rows[i].map(h => h.trim().toLowerCase());
             
-            // 如果這列包含這些關鍵字，認定為標頭列
             if (row.includes('title') || row.includes('id') || row.includes('date') || 
                 row.includes('標題') || row.includes('公告標題') || row.includes('姓名')) {
                 headerLineIdx = i;
                 headers = row;
-                // 若直接找到精準的英文 'title'，就確定是這行了，直接中斷掃描
                 if (row.includes('title')) break; 
             }
         }
 
-        // 萬一找不到，退回預設：抓第一行有字的
         if (headerLineIdx === -1) {
-            for(let i=0; i<lines.length; i++) {
-                if(lines[i].trim()) {
+            for(let i=0; i < rows.length; i++) {
+                if(rows[i].join('').trim()) {
                     headerLineIdx = i;
-                    headers = parseRow(lines[i]).map(h => h.trim().toLowerCase());
+                    headers = rows[i].map(h => h.trim().toLowerCase());
                     break;
                 }
             }
@@ -64,12 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = [];
         
-        // 從標頭的「下一列」開始才是真正的資料
-        for (let i = headerLineIdx + 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
-            const row = parseRow(lines[i]);
-            
-            // 略過完全空白的列
+        for (let i = headerLineIdx + 1; i < rows.length; i++) {
+            const row = rows[i];
             if (row.join('').trim() === '') continue;
 
             const obj = {};
@@ -79,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // 中英文欄位智慧對應
             obj.title = obj.title || obj['公告標題'] || obj['標題'] || obj['名稱'] || '';
             obj.date = obj.date || obj['日期'] || obj['發布日期'] || '';
             obj.author = obj.author || obj['發布者'] || obj['作者'] || obj['單位'] || '';
@@ -96,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             obj.image = obj.image || obj['照片'] || obj['圖片'] || '';
             obj.email = obj.email || obj['信箱'] || obj['電子郵件'] || '';
 
-            // 防呆機制：如果這一列連標題(或姓名)都沒有，極可能是底部的空白欄位或無效資料，直接略過
             if (!obj.title && !obj.name) continue;
 
             data.push(obj);
@@ -160,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 parsedData = parsedData.map(item => {
                     if (item.tags && typeof item.tags === 'string') {
-                        // 支援各種逗號分隔標籤
                         item.tags = item.tags.split(/,|，|、/).map(t => t.trim()).filter(t => t);
                     } else if (!item.tags) {
                         item.tags = [];
@@ -245,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalDate.textContent = `日期：${announcement.date} | 單位：${announcement.author} | 字號：${announcement.number || '無'}`;
             
             let content = announcement.content || "";
-            // 將內容中 HTML 的連結標籤還原 (以防 Google Sheets 輸出時有跳脫問題)
+            // 將內容中 HTML 的換行正確轉成 <br>
             let formattedContent = content.replace(/\r\n|\n|\r/g, '<br>');
             
             modalBody.innerHTML = formattedContent;
