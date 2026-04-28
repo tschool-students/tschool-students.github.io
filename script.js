@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modal-body');
         const closeButton = document.querySelector('.close-button');
 
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
         const ANNOUNCEMENTS_URL = BASE_URL + '?sheet=announcements'; 
 
         let allAnnouncements = [];
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginationControls = document.getElementById('pagination-controls');
 
         // 設定 API 網址，指定讀取 sheet=files
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
         const FILES_URL = BASE_URL + '?sheet=files';
 
         let allFiles = [];
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingSpinnerTeam = document.getElementById('loading-spinner');
         
         // 指定抓取 sheet=team 的資料
-        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbx1IRFzlz-cgTMkMIKHDs-e63QFDiyFw9ofTrJ6GISE_LfqjFKDpPnedHZVJkDCQBsR/exec'; 
         const TEAM_URL = BASE_URL + '?sheet=team'; 
 
         // 顯示 Loading
