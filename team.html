@@ -35,102 +35,24 @@
     </div>
 
     <main class="container">
-        
+        <!-- 載入中動畫 -->
+        <div id="loading-spinner" style="display: none; text-align: center; padding: 40px 0;">
+            <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: #004d99;"></i>
+            <p style="margin-top: 10px;">資料載入中...</p>
+        </div>
+
         <!-- 正副會長區 -->
         <h3 class="section-title">會長、副會長</h3>
-        <div class="grid-4">
-            <!-- 卡片範例 1 -->
-            <div class="card team-card">
-                <div class="profile-box">
-                    <!-- 若無照片，可用預設圖或 FontAwesome -->
-                    <img src="images/余兆宜.png" alt="會長照片" class="profile-img">
-                </div>
-                <h3>余兆宜</h3>
-                <p class="team-role">會長</p>
-                
-                <div class="team-contact">
-                    <a href="mailto:11330211@tschool.tp.edu.tw" target="_blank">
-                        <i class="fa-solid fa-envelope"></i> 11330211@tschool.tp.edu.tw
-                    </a>
-                </div>
-            </div>
-
-            <!-- 卡片範例 2 -->
-            <div class="card team-card">
-                <div class="profile-box">
-                    <img src="images/毛宇禾.png" alt="副會長照片" class="profile-img">
-                </div>
-                <h3>毛宇禾</h3>
-                <p class="team-role">副會長</p>
-                
-                <div class="team-contact">
-                    <a href="mailto:11330210@tschool.tp.edu.tw" target="_blank">
-                        <i class="fa-solid fa-envelope"></i> 11330210@tschool.tp.edu.tw
-                    </a>
-                </div>
-
-                <a href="https://jimmymao330.github.io" class="team-more-btn" target="_blank">
-                    更多資訊 <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
+        <div class="grid-4" id="team-main-list">
+            <!-- JS 會自動將正副會長卡片生成在這裡 -->
         </div>
 
         <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
 
         <!-- 各部部長區 -->
         <h3 class="section-title">各部門部長</h3>
-        <div class="grid-4">
-            <!-- 秘書部 -->
-            <div class="card team-card">
-                <div class="profile-box">
-                    <!--<img src="" alt="照片" class="profile-img">-->
-                </div>
-                <h3>空缺</h3>
-                <p class="team-role">秘書部部長</p>
-                <!--<div class="team-contact">
-                    <a href="mailto:" target="_blank"><i class="fa-solid fa-envelope"></i> 聯絡信箱</a>
-                </div>-->
-                <!--<a href="" class="team-more-btn" target="_blank">更多資訊</a>-->
-            </div>
-
-            <!-- 學權部 -->
-            <div class="card team-card">
-                <div class="profile-box">
-                    <img src="images/賴永來.png" alt="照片" class="profile-img">
-                </div>
-                <h3>賴永來</h3>
-                <p class="team-role">學權部部長</p>
-                <div class="team-contact">
-                    <a href="mailto:11330116@tschool.tp.edu.tw" target="_blank"><i class="fa-solid fa-envelope"></i> 聯絡信箱</a>
-                </div>
-                <!--<a href="#" class="team-more-btn" target="_blank">更多資訊</a>-->
-            </div>
-
-            <!-- 活動部 -->
-             <div class="card team-card">
-                <div class="profile-box">
-                    <img src="images/朱子芃.png" alt="照片" class="profile-img">
-                </div>
-                <h3>朱子芃</h3>
-                <p class="team-role">活動部部長</p>
-                <div class="team-contact">
-                    <a href="mailto:11335102@tschool.tp.edu.tw" target="_blank"><i class="fa-solid fa-envelope"></i> 聯絡信箱</a>
-                </div>
-                <!--<a href="#" class="team-more-btn" target="_blank">更多資訊</a>-->
-            </div>
-
-            <!-- 公關部 -->
-            <div class="card team-card">
-                <div class="profile-box">
-                    <img src="images/李欣安.png" alt="照片" class="profile-img">
-                </div>
-                <h3>李欣安</h3>
-                <p class="team-role">公關部部長</p>
-                <div class="team-contact">
-                    <a href="mailto:11335202@tschool.tp.edu.tw" target="_blank"><i class="fa-solid fa-envelope"></i> 聯絡信箱</a>
-                </div>
-                <!--<a href="#" class="team-more-btn" target="_blank">更多資訊</a>-->
-            </div>
+        <div class="grid-4" id="team-admin-list">
+             <!-- JS 會自動將各部部長卡片生成在這裡 -->
         </div>
 
     </main>

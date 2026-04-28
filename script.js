@@ -280,4 +280,84 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // ==========================================
+    // 4. 幹部介紹自動讀取邏輯
+    // ==========================================
+    const teamMainList = document.getElementById('team-main-list');
+    const teamAdminList = document.getElementById('team-admin-list');
+
+    if (teamMainList && teamAdminList) {
+        const loadingSpinnerTeam = document.getElementById('loading-spinner');
+        
+        // 指定抓取 sheet=team 的資料
+        const BASE_URL = 'https://script.google.com/macros/s/AKfycbyftBXv8Jg6RXMQOeDZMhnaU1gvFoj1bofrbLmaHbnPh90-0tY5SGrf5Naa2CXq2g0k/exec'; 
+        const TEAM_URL = BASE_URL + '?sheet=team'; 
+
+        // 顯示 Loading
+        if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'block';
+
+        fetch(TEAM_URL)
+            .then(response => {
+                if (!response.ok) throw new Error('Network error');
+                return response.json();
+            })
+            .then(data => {
+                if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'none';
+
+                // 將資料依據 category (main 或 admin) 進行分類
+                const mainTeam = data.filter(member => member.category === 'main');
+                const adminTeam = data.filter(member => member.category === 'admin');
+
+                // 呼叫渲染函數
+                renderTeamCards(mainTeam, teamMainList);
+                renderTeamCards(adminTeam, teamAdminList);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'none';
+                teamMainList.innerHTML = '<p style="color: red; grid-column: 1/-1;">幹部資料載入失敗，請稍後再試。</p>';
+            });
+
+        // 建立卡片的共用函數
+        function renderTeamCards(members, container) {
+            container.innerHTML = ''; // 清空預設內容
+
+            if (members.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">目前尚無資料</p>';
+                return;
+            }
+
+            members.forEach(member => {
+                const div = document.createElement('div');
+                div.classList.add('card', 'team-card');
+
+                // 處理照片 (若無提供連結，則顯示 FontAwesome 預設人像)
+                const imageHtml = member.image 
+                    ? `<img src="${member.image}" alt="${member.name}照片" class="profile-img">`
+                    : `<div style="width: 120px; height: 120px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: #bbb;"><i class="fa-solid fa-user fa-3x"></i></div>`;
+
+                // 處理 Email (若為空字串則不顯示)
+                const emailHtml = member.email 
+                    ? `<div class="team-contact"><a href="mailto:${member.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${member.email}</a></div>` 
+                    : '';
+
+                // 處理更多資訊 (若為空字串則不顯示)
+                const linkHtml = member.link 
+                    ? `<a href="${member.link}" class="team-more-btn" target="_blank">更多資訊 <i class="fa-solid fa-arrow-right"></i></a>` 
+                    : '';
+
+                div.innerHTML = `
+                    <div class="profile-box">
+                        ${imageHtml}
+                    </div>
+                    <h3>${member.name || '空缺'}</h3>
+                    <p class="team-role">${member.role || ''}</p>
+                    ${emailHtml}
+                    ${linkHtml}
+                `;
+
+                container.appendChild(div);
+            });
+        }
+    }
 });
