@@ -210,7 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
             members.forEach(member => {
                 const div = document.createElement('div');
                 div.className = 'card team-card';
-                const imageHtml = member.image;
+                const imageHtml = member.image 
+                    ? `<img src="${member.image}" alt="${member.name}" class="profile-img" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">`
+                    : `<div class="profile-placeholder"></div>`;
 
                 div.innerHTML = `
                     <div class="profile-box">${imageHtml}</div>
