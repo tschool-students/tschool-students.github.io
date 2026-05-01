@@ -211,14 +211,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const div = document.createElement('div');
                 div.className = 'card team-card';
                 const imageHtml = member.image 
-                    ? `<img src="${member.image}" alt="${member.name}" class="profile-img" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">`
+                    ? `<img src="${member.image}" alt="${member.name}" class="profile-img">`
                     : `<div class="profile-placeholder"><i class="fa-solid fa-user fa-3x"></i></div>`;
 
                 div.innerHTML = `
                     <div class="profile-box">${imageHtml}</div>
                     <h3>${member.name}</h3>
                     <p class="team-role">${member.role}</p>
-                    ${member.email ? `<div class="team-contact"><a href="mailto:${member.email}"><i class="fa-solid fa-envelope"></i> ${member.email}</a></div>` : ''}
+                    ${member.email ? `<div class="team-contact"><a href="mailto:${member.email}"><i class="fa-solid fa-envelope"></i> Email</a></div>` : ''}
                     ${member.link ? `<a href="${member.link}" class="team-more-btn" target="_blank">更多資訊 <i class="fa-solid fa-arrow-right"></i></a>` : ''}
                 `;
                 container.appendChild(div);
