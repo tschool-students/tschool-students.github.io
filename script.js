@@ -404,7 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (teamMainList && teamAdminList) {
         const loadingSpinnerTeam = document.getElementById('loading-spinner');
-        
         const TEAM_URL = SHEET_BASE_URL + '?gid=683145411&single=true&output=csv&t=' + Date.now(); 
 
         if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'block';
@@ -418,8 +417,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = parseCSV(csv);
                 if(loadingSpinnerTeam) loadingSpinnerTeam.style.display = 'none';
 
-                const mainTeam = data.filter(member => member.category === 'main');
-                const adminTeam = data.filter(member => member.category === 'admin');
+                // 修正點 2：過濾時改為不區分大小寫並去除空白，增加相容性
+                const mainTeam = data.filter(member => 
+                    member.category && member.category.trim().toLowerCase() === 'main'
+                );
+                const adminTeam = data.filter(member => 
+                    member.category && member.category.trim().toLowerCase() === 'admin'
+                );
 
                 renderTeamCards(mainTeam, teamMainList);
                 renderTeamCards(adminTeam, teamAdminList);
