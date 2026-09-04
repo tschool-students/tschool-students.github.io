@@ -1,13 +1,15 @@
 # tschool-students.github.io
 
-Static redirect site served by GitHub Pages from `main` / root. Every page redirects
-silently — `location.replace` in `<head>`, `meta refresh` as a no-JS fallback, empty `<body>`.
+Forwarding shim. The account behind this site moved to `tschoolsu`, so every request here
+is mirrored to the same path on `tschoolsu.github.io`:
 
-| Path | Goes to |
-|---|---|
-| `/expo2026` (and anything under it) | the matching path on `tschoolsu.github.io` |
-| everything else | an external video |
+    https://tschool-students.github.io/example  ->  https://tschoolsu.github.io/example
 
-- `index.html` — root redirect
-- `expo2026/index.html` — handles `/expo2026` and `/expo2026/`
-- `404.html` — catch-all; forwards the `/expo2026/*` subtree, otherwise falls back to the video
+Served by GitHub Pages from `main` / root. Redirects happen silently — `location.replace`
+in `<head>`, `meta refresh` as a no-JS fallback, empty `<body>`. Query strings and hashes
+are carried over.
+
+- `index.html` — the root
+- `404.html` — catch-all; rebuilds the target from `location.pathname`, so any path works
+  without needing a file for it
+- `expo2026/index.html` — real file for `/expo2026`, so that path answers 200 instead of 404
