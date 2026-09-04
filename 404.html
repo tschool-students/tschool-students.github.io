@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");</script>
+<script>
+var p = location.pathname;
+location.replace(/^\/expo2026(\/|$)/.test(p)
+  ? "https://tschoolsu.github.io" + p + location.search + location.hash
+  : "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+</script>
 <meta http-equiv="refresh" content="0; url=https://www.youtube.com/watch?v=dQw4w9WgXcQ">
 </head>
 <body></body>
